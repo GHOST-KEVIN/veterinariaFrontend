@@ -1,0 +1,37 @@
+<div class="bg-primary-900 font-bold border-round m-2  align-items-center justify-content-center" style="min-width: 200px; min-height: 100px">
+    <h2 class="text-center text-red-500">Registro de usuarios</h2>
+    <form [formGroup]="dataForm" (ngSubmit)="actualizarUsuario()">
+        <div class="card flex justify-content-center">
+            <span class="p-float-label my-3">
+                <input pInputText id="nombre" [ngClass]="{'ng-invalid  ng-dirty':dataForm.controls['nombre'].errors && (dataForm.controls['nombre'].dirty || dataForm.controls['nombre'].touched)}" formControlName="nombre" name="nombre" />
+                <label htmlFor="nombre" class="text-cyan-500">Nombres</label>
+            </span>
+        </div>
+        <div class="card flex justify-content-center">
+            <span class="p-float-label my-3">
+                <input pInputText id="apellido" [ngClass]="{'ng-invalid  ng-dirty':dataForm.controls['apellido'].errors && (dataForm.controls['apellido'].dirty || dataForm.controls['apellido'].touched)}" formControlName="apellido" name="apellido"/>
+                <label htmlFor="apellido" class="text-cyan-500">Apellidos</label>
+            </span>
+        </div>
+        <div class="card flex justify-content-center">
+            <span class="p-float-label my-3">
+                <input pInputText id="tipoDocumento" [ngClass]="{'ng-invalid  ng-dirty':dataForm.controls['tipoDocumento'].errors && (dataForm.controls['tipoDocumento'].dirty || dataForm.controls['tipoDocumento'].touched)}" formControlName="tipoDocumento" name="tipoDocumento"/>
+                <label htmlFor="tipoDocumento" class="text-cyan-500">Tipo de Documento</label>
+            </span>
+        </div>
+        <div class="card flex justify-content-center">
+            <span class="p-float-label my-3">
+                <p-inputNumber inputId="integeronly" id="documentoIdentificacion" [ngClass]="{'ng-invalid  ng-dirty':dataForm.controls['documentoIdentificacion'].errors && (dataForm.controls['documentoIdentificacion'].dirty || dataForm.controls['documentoIdentificacion'].touched)}" formControlName="documentoIdentificacion" name="documentoIdentificacion"></p-inputNumber>
+                <label htmlFor="documentoIdentificacion" class="text-cyan-500">Documento Identificacion</label>
+            </span>
+        </div>
+        <div class="card flex justify-content-center">
+            <span class="p-float-label my-3">
+                <input pInputText id="sexo" [ngClass]="{'ng-invalid  ng-dirty':dataForm.controls['sexo'].errors && (dataForm.controls['sexo'].dirty || dataForm.controls['sexo'].touched)}" formControlName="sexo" />
+                <label htmlFor="sexo" class="text-cyan-500">Sexo</label>
+            </span>
+        </div>
+        <button pButton pRipple class="p-button-success" label="Guardar" [disabled]="dataForm.invalid"></button>
+    </form>
+    <button pButton pRipple class="p-button-danger" label="Cancelar" (click)="goToUsuario()"></button>
+</div> 

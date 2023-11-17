@@ -1,0 +1,22 @@
+<div class="bg-primary-900 font-bold border-round m-2  align-items-center justify-content-center" style="min-width: 200px; min-height: 100px">
+
+    <h2 class="text-center text-red-500">Crear Detalle Clinico</h2>
+
+    <form [formGroup]="dataForm" (ngSubmit)="actualizarConsulta()">
+        <div class="card flex justify-content-center">
+            <span class="p-float-label my-3">
+                <p-calendar placeholder="Fecha" id="fechaCreacion" [showTime]="true" [showSeconds]="true" [ngClass]="{'ng-invalid  ng-dirty':dataForm.controls['fechaCreacion'].errors && (dataForm.controls['fechaCreacion'].dirty || dataForm.controls['fechaCreacion'].touched)}" formControlName="fechaCreacion" name="fechaCreacion"></p-calendar>
+                <label htmlFor="fechaCreacion" class="text-cyan-500">Fecha Hora</label>
+            </span>
+        </div>
+        <div class="card flex justify-content-center">
+            <span class="p-float-label my-3">
+                <p-dropdown  [options]="mascotas" optionLabel="nombre" optionValue="id" id="mascota" [ngClass]="{'ng-invalid  ng-dirty':dataForm.controls['mascota'].errors && (dataForm.controls['mascota'].dirty || dataForm.controls['mascota'].touched)}" formControlName="mascota" name="mascota"></p-dropdown>
+                <label htmlFor="mascota" class="text-cyan-500">Mascota</label>
+            </span>
+        </div>
+        <button pButton pRipple label="Guardar" class="p-button-success"></button>
+    </form>
+    <button pButton pRipple label="Regresar" class="p-button-danger" (click)="goToHistoriaClinica()"></button>
+</div> 
+
