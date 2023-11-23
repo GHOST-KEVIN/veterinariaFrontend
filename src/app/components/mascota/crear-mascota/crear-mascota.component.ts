@@ -43,8 +43,8 @@ export class CrearMascotaComponent implements OnInit {
     this.mascota.nombre = this.dataForm.value?.nombre;
     this.mascota.raza = this.dataForm.value?.raza;
     this.mascota.sexo = this.dataForm.value?.sexo;
-    this.mascota.usuario.id = this.dataForm.value?.usuario;
-
+    this.mascota.usuarioId = this.dataForm.value?.usuario;
+    
     this.mascotaService.guardar(this.mascota).subscribe(() => {
       this.router.navigate(['/mascota'])
     })

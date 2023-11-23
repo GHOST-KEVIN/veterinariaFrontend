@@ -3,66 +3,81 @@
     <h2 class="text-center text-red-500">Crear Detalle Clinico</h2>
 
     <form [formGroup]="dataForm" (ngSubmit)="registrarDetalles()">
-        <div class="card flex justify-content-center">
-            <span class="p-float-label my-3">
-                <input pInputText id="temperatura" [ngClass]="{'ng-invalid  ng-dirty':dataForm.controls['temperatura'].errors && (dataForm.controls['temperatura'].dirty || dataForm.controls['temperatura'].touched)}" formControlName="temperatura" name="temperatura" />
-                <label htmlFor="temperatura" class="text-cyan-500">Temperaturas</label>
-            </span>
+        <div class="formgrid grid">
+            <div class="field col card flex justify-content-center">
+                <span class="p-float-label my-3">
+                    <input pInputText id="temperatura" [ngClass]="{'ng-invalid  ng-dirty':dataForm.controls['temperatura'].errors && (dataForm.controls['temperatura'].dirty || dataForm.controls['temperatura'].touched)}" formControlName="temperatura" name="temperatura" />
+                    <label htmlFor="temperatura" class="text-cyan-500">Temperaturas</label>
+                </span>
+            </div>
+            <div class="field col card flex justify-content-center">
+                <span class="p-float-label my-3">
+                    <p-inputNumber inputId="integeronly" id="peso" [ngClass]="{'ng-invalid  ng-dirty':dataForm.controls['peso'].errors && (dataForm.controls['peso'].dirty || dataForm.controls['peso'].touched)}" formControlName="peso" name="peso"></p-inputNumber>
+                    <label htmlFor="peso" class="text-cyan-500">Peso</label>
+                </span>
+            </div>
         </div>
-        <div class="card flex justify-content-center">
-            <span class="p-float-label my-3">
-                <p-inputNumber inputId="integeronly" id="peso" [ngClass]="{'ng-invalid  ng-dirty':dataForm.controls['peso'].errors && (dataForm.controls['peso'].dirty || dataForm.controls['peso'].touched)}" formControlName="peso" name="peso"></p-inputNumber>
-                <label htmlFor="peso" class="text-cyan-500">Peso</label>
-            </span>
+
+        <div class="formgrid grid">
+            <div class="field col card flex justify-content-center">
+                <span class="p-float-label my-3">
+                    <p-inputNumber inputId="integeronly" id="frecuenciaCardiaca" [ngClass]="{'ng-invalid  ng-dirty':dataForm.controls['frecuenciaCardiaca'].errors && (dataForm.controls['frecuenciaCardiaca'].dirty || dataForm.controls['frecuenciaCardiaca'].touched)}" formControlName="frecuenciaCardiaca" name="frecuenciaCardiaca"></p-inputNumber>
+                    <label htmlFor="frecuenciaCardiaca" class="text-cyan-500">Frecuencia Cardiaca</label>
+                </span>
+            </div>
+            <div class="field col card flex justify-content-center">
+                <span class="p-float-label my-3">
+                    <p-inputNumber inputId="integeronly" id="frecuenciaRespiratoria" [ngClass]="{'ng-invalid  ng-dirty':dataForm.controls['frecuenciaRespiratoria'].errors && (dataForm.controls['frecuenciaRespiratoria'].dirty || dataForm.controls['frecuenciaRespiratoria'].touched)}" formControlName="frecuenciaRespiratoria" name="frecuenciaRespiratoria"></p-inputNumber>
+                    <label htmlFor="frecuenciaRespiratoria" class="text-cyan-500">Frecuencia Respiratoria</label>
+                </span>
+            </div>
         </div>
-        <div class="card flex justify-content-center">
-            <span class="p-float-label my-3">
-                <p-inputNumber inputId="integeronly" id="frecuenciaCardiaca" [ngClass]="{'ng-invalid  ng-dirty':dataForm.controls['frecuenciaCardiaca'].errors && (dataForm.controls['frecuenciaCardiaca'].dirty || dataForm.controls['frecuenciaCardiaca'].touched)}" formControlName="frecuenciaCardiaca" name="frecuenciaCardiaca"></p-inputNumber>
-                <label htmlFor="frecuenciaCardiaca" class="text-cyan-500">Frecuencia Cardiaca</label>
-            </span>
+
+        <div class="formgrid grid">
+            <div class="field col card flex justify-content-center">
+                <span class="p-float-label my-3">
+                    <p-calendar placeholder="Fecha" id="fechaHora" [showTime]="true" [showSeconds]="true" [ngClass]="{'ng-invalid  ng-dirty':dataForm.controls['fechaHora'].errors && (dataForm.controls['fechaHora'].dirty || dataForm.controls['fechaHora'].touched)}" formControlName="fechaHora" name="fechaHora"></p-calendar>
+                    <label htmlFor="fechaHora" class="text-cyan-500">Fecha Hora</label>
+                </span>
+            </div>
+            <div class="field col card flex justify-content-center">
+                <span class="p-float-label my-3">
+                    <input pInputText id="alimentacion" [ngClass]="{'ng-invalid  ng-dirty':dataForm.controls['alimentacion'].errors && (dataForm.controls['alimentacion'].dirty || dataForm.controls['alimentacion'].touched)}" formControlName="alimentacion" name="alimentacion" />
+                    <label htmlFor="alimentacion" class="text-cyan-500">Alimentacion</label>
+                </span>
+            </div>
         </div>
-        <div class="card flex justify-content-center">
-            <span class="p-float-label my-3">
-                <p-inputNumber inputId="integeronly" id="frecuenciaRespiratoria" [ngClass]="{'ng-invalid  ng-dirty':dataForm.controls['frecuenciaRespiratoria'].errors && (dataForm.controls['frecuenciaRespiratoria'].dirty || dataForm.controls['frecuenciaRespiratoria'].touched)}" formControlName="frecuenciaRespiratoria" name="frecuenciaRespiratoria"></p-inputNumber>
-                <label htmlFor="frecuenciaRespiratoria" class="text-cyan-500">Frecuencia Respiratoria</label>
-            </span>
+
+        <div class="formgrid grid">
+            <div class="field col card flex justify-content-center">
+                <span class="p-float-label my-3">
+                    <input pInputText id="habitad" [ngClass]="{'ng-invalid  ng-dirty':dataForm.controls['habitad'].errors && (dataForm.controls['habitad'].dirty || dataForm.controls['habitad'].touched)}" formControlName="habitad" name="habitad" />
+                    <label htmlFor="habitad" class="text-cyan-500">Habitad</label>
+                </span>
+            </div>
+            <div class="field col card flex justify-content-center">
+                <span class="p-float-label my-3">
+                    <input pInputText id="observacion" [ngClass]="{'ng-invalid  ng-dirty':dataForm.controls['observacion'].errors && (dataForm.controls['observacion'].dirty || dataForm.controls['observacion'].touched)}" formControlName="observacion" name="observacion" />
+                    <label htmlFor="observacion" class="text-cyan-500">Observacion</label>
+                </span>
+            </div>
         </div>
-        <div class="card flex justify-content-center">
-            <span class="p-float-label my-3">
-                <p-calendar placeholder="Fecha" id="fechaHora" [showTime]="true" [showSeconds]="true" [ngClass]="{'ng-invalid  ng-dirty':dataForm.controls['fechaHora'].errors && (dataForm.controls['fechaHora'].dirty || dataForm.controls['fechaHora'].touched)}" formControlName="fechaHora" name="fechaHora"></p-calendar>
-                <label htmlFor="fechaHora" class="text-cyan-500">Fecha Hora</label>
-            </span>
+
+        <div class="formgrid grid">
+            <div class="field col card flex justify-content-center">
+                <span class="p-float-label my-3">
+                    <p-dropdown  [options]="historiasClinicas" optionLabel="fechaCreacion" optionValue="id" id="historiaClinica" [ngClass]="{'ng-invalid  ng-dirty':dataForm.controls['historiaClinica'].errors && (dataForm.controls['historiaClinica'].dirty || dataForm.controls['historiaClinica'].touched)}" formControlName="historiaClinica" name="historiaClinica"></p-dropdown>
+                    <label htmlFor="historiaClinica" class="text-cyan-500">Historia Clinica</label>
+                </span>
+            </div>
+            <div class="field col card flex justify-content-center">
+                <span class="p-float-label my-3">
+                    <p-dropdown  [options]="colaboradores" optionLabel="nombre" optionValue="id" id="colaborador" [ngClass]="{'ng-invalid  ng-dirty':dataForm.controls['colaborador'].errors && (dataForm.controls['colaborador'].dirty || dataForm.controls['colaborador'].touched)}" formControlName="colaborador" name="colaborador"></p-dropdown>
+                    <label htmlFor="colaborador" class="text-cyan-500">Colaborador</label>
+                </span>
+            </div>
         </div>
-        <div class="card flex justify-content-center">
-            <span class="p-float-label my-3">
-                <input pInputText id="alimentacion" [ngClass]="{'ng-invalid  ng-dirty':dataForm.controls['alimentacion'].errors && (dataForm.controls['alimentacion'].dirty || dataForm.controls['alimentacion'].touched)}" formControlName="alimentacion" name="alimentacion" />
-                <label htmlFor="alimentacion" class="text-cyan-500">Alimentacion</label>
-            </span>
-        </div>
-        <div class="card flex justify-content-center">
-            <span class="p-float-label my-3">
-                <input pInputText id="habitad" [ngClass]="{'ng-invalid  ng-dirty':dataForm.controls['habitad'].errors && (dataForm.controls['habitad'].dirty || dataForm.controls['habitad'].touched)}" formControlName="habitad" name="habitad" />
-                <label htmlFor="habitad" class="text-cyan-500">Habitad</label>
-            </span>
-        </div>
-        <div class="card flex justify-content-center">
-            <span class="p-float-label my-3">
-                <input pInputText id="observacion" [ngClass]="{'ng-invalid  ng-dirty':dataForm.controls['observacion'].errors && (dataForm.controls['observacion'].dirty || dataForm.controls['observacion'].touched)}" formControlName="observacion" name="observacion" />
-                <label htmlFor="observacion" class="text-cyan-500">Observacion</label>
-            </span>
-        </div>
-        <div class="card flex justify-content-center">
-            <span class="p-float-label my-3">
-                <p-dropdown  [options]="historiasClinicas" optionLabel="fechaCreacion" optionValue="id" id="historiaClinica" [ngClass]="{'ng-invalid  ng-dirty':dataForm.controls['historiaClinica'].errors && (dataForm.controls['historiaClinica'].dirty || dataForm.controls['historiaClinica'].touched)}" formControlName="historiaClinica" name="historiaClinica"></p-dropdown>
-                <label htmlFor="historiaClinica" class="text-cyan-500">Historia Clinica</label>
-            </span>
-        </div>
-        <div class="card flex justify-content-center">
-            <span class="p-float-label my-3">
-                <p-dropdown  [options]="colaboradores" optionLabel="nombre" optionValue="id" id="colaborador" [ngClass]="{'ng-invalid  ng-dirty':dataForm.controls['colaborador'].errors && (dataForm.controls['colaborador'].dirty || dataForm.controls['colaborador'].touched)}" formControlName="colaborador" name="colaborador"></p-dropdown>
-                <label htmlFor="colaborador" class="text-cyan-500">Colaborador</label>
-            </span>
-        </div>
+
         <button pButton pRipple class="p-button-success" label="Guardar" [disabled]="dataForm.invalid" ></button>
     </form>
     <button pButton pRipple class="p-button-danger" label="Cancelar" (click)="goToDetalles()"></button>

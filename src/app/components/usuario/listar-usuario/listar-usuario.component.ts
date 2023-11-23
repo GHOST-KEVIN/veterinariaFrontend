@@ -34,7 +34,7 @@ export class ListarUsuarioComponent implements OnInit {
 
   eliminarUsuario(id:number){
     this.usuarioService.eliminar(id).subscribe(() => {
-      alert('eliminado con exito')
+      this.todosLosUsuarios()
     })
 
     this.todosLosUsuarios();

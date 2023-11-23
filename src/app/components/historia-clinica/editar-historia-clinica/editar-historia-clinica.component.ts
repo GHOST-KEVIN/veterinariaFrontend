@@ -28,7 +28,7 @@ export class EditarHistoriaClinicaComponent implements OnInit {
   formBuilding(){
     this.dataForm = new FormGroup({
       fechaCreacion: new FormControl('', [Validators.required]),
-      mascota: new FormControl('', [Validators.required])
+      mascotaId: new FormControl('', [Validators.required, Validators.maxLength(1)])
     })
 
     this.dataForm.patchValue(this.historiaClinica)
@@ -39,7 +39,7 @@ export class EditarHistoriaClinicaComponent implements OnInit {
 
     this.historiaClinicaService.obtenerPorId(this.id).subscribe(datos => {
       this.historiaClinica = datos;
-
+      console.log(this.historiaClinica)
       this.formBuilding();
     })
   }
@@ -56,7 +56,7 @@ export class EditarHistoriaClinicaComponent implements OnInit {
 
   actualizarConsulta(){
     this.historiaClinica.fechaCreacion = this.dataForm.value.fechaCreacion;
-    this.historiaClinica.mascota.id = this.dataForm.value.mascota;
+    this.historiaClinica.mascotaId = this.dataForm.value.mascotaId;
 
     this.historiaClinicaService.actualizar(this.id, this.historiaClinica).subscribe(() =>{
       this.goToHistoriaClinica();

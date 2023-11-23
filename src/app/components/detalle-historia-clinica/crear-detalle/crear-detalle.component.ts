@@ -72,8 +72,8 @@ export class CrearDetalleComponent implements OnInit {
     this.detalles.alimentacion = this.dataForm.value.alimentacion;
     this.detalles.habitad = this.dataForm.value.habitad;
     this.detalles.observacion = this.dataForm.value.observacion;
-    this.detalles.historiaClinica.id = this.dataForm.value.historiaClinica;
-    this.detalles.colaborador.id = this.dataForm.value.colaborador;
+    this.detalles.historiaClinicaId = this.dataForm.value.historiaClinica;
+    this.detalles.colaboradorId = this.dataForm.value.colaborador;
     // console.log(this.detalles)
 
     this.detalleHistoriaClinicaService.guardar(this.detalles).subscribe(() => {

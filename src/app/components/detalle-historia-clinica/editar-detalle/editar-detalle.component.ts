@@ -46,8 +46,8 @@ export class EditarDetalleComponent implements OnInit {
       alimentacion: new FormControl('', [Validators.required, Validators.maxLength(15)]),
       habitad: new FormControl('', [Validators.required, Validators.maxLength(15)]),
       observacion: new FormControl('', [Validators.required, Validators.maxLength(255)]),
-      historiaClinica: new FormControl('', [Validators.required]),
-      colaborador: new FormControl('', [Validators.required])
+      historiaClinicaId: new FormControl('', [Validators.required]),
+      colaboradorId: new FormControl('', [Validators.required])
     })
 
     this.dataForm.patchValue(this.detalles)
@@ -84,10 +84,9 @@ export class EditarDetalleComponent implements OnInit {
     this.detalles.alimentacion = this.dataForm.value.alimentacion;
     this.detalles.habitad = this.dataForm.value.habitad;
     this.detalles.observacion = this.dataForm.value.observacion;
-    this.detalles.historiaClinica.id = this.dataForm.value.historiaClinica;
-    this.detalles.colaborador.id = this.dataForm.value.colaborador;
+    this.detalles.historiaClinicaId = this.dataForm.value.historiaClinicaId;
+    this.detalles.colaboradorId = this.dataForm.value.colaboradorId;
 
-    // console.log(this.detalles)
     this.detalleService.actualizar(this.id, this.detalles).subscribe(() => {
       this.router.navigate(['detalle-historia-clinica'])
     })

@@ -6,7 +6,7 @@
     <form [formGroup]="dataForm" (ngSubmit)="guardarConsulta()">
         <div class="card flex justify-content-center">
             <span class="p-float-label my-3">
-                <p-calendar placeholder="Fecha" id="fechaCreacion" [showTime]="true" [showSeconds]="true" [ngClass]="{'ng-invalid  ng-dirty':dataForm.controls['fechaCreacion'].errors && (dataForm.controls['fechaCreacion'].dirty || dataForm.controls['fechaCreacion'].touched)}" formControlName="fechaCreacion" name="fechaCreacion"></p-calendar>
+                <p-calendar id="fechaCreacion" [ngClass]="{'ng-invalid  ng-dirty':dataForm.controls['fechaCreacion'].errors && (dataForm.controls['fechaCreacion'].dirty || dataForm.controls['fechaCreacion'].touched)}" formControlName="fechaCreacion" name="fechaCreacion"></p-calendar>
                 <label htmlFor="fechaCreacion" class="text-cyan-500">Fecha Hora</label>
             </span>
         </div>

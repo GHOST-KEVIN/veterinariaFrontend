@@ -36,7 +36,7 @@ export class EditarMascotaComponent implements OnInit {
     
     this.mascotaService.obtenerPorId(this.id).subscribe(data => {
       this.mascota = data;
-
+      // console.log(this.mascota)
       this.FormBuilding()
     })
   }
@@ -47,7 +47,7 @@ export class EditarMascotaComponent implements OnInit {
       nombre: new FormControl( '', [Validators.required, Validators.maxLength(15)]),
       raza: new FormControl( '', [Validators.required, Validators.maxLength(20)]),
       sexo: new FormControl( '', [Validators.required, Validators.maxLength(15)]),
-      usuario: new FormControl( '', [Validators.required, Validators.maxLength(1)])
+      usuarioId: new FormControl( '', [Validators.required, Validators.maxLength(1)])
     })
 
     this.dataForm.patchValue(this.mascota)
@@ -63,8 +63,8 @@ export class EditarMascotaComponent implements OnInit {
     this.mascota.nombre = this.dataForm.value?.nombre;
     this.mascota.raza = this.dataForm.value?.raza;
     this.mascota.sexo = this.dataForm.value?.sexo;
-    this.mascota.usuario.id = this.dataForm.value?.usuario;
-
+    this.mascota.usuarioId = this.dataForm.value?.usuarioId;
+    
     this.mascotaService.actualizar(this.id, this.mascota).subscribe(() => {
       this.router.navigate(['/mascota'])
     })

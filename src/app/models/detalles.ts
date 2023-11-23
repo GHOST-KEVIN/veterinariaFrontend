@@ -10,6 +10,8 @@ export class Detalles{
     alimentacion!:string
     habitad!:string
     observacion!:string
+    historiaClinicaId!:number
     historiaClinica:HistoriaClinica = new HistoriaClinica();
+    colaboradorId!:number
     colaborador:Colaborador = new Colaborador();
 }

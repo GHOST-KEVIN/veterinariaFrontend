@@ -43,7 +43,7 @@ export class RegistrarHistoriaClinicaComponent implements OnInit {
 
   guardarConsulta(){
     this.historiaClinica.fechaCreacion = this.dataForm.value.fechaCreacion;
-    this.historiaClinica.mascota.id = this.dataForm.value.mascota;
+    this.historiaClinica.mascotaId = this.dataForm.value.mascota;
     
     this.historiaClinicaService.guardar(this.historiaClinica).subscribe(() => {
       this.goToHistoriaClinica();
