@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Mascota } from 'src/app/models/mascota';
 import { MascotaService } from 'src/app/services/mascota/mascota.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-editar-historia-clinica',
@@ -12,6 +13,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./editar-historia-clinica.component.css']
 })
 export class EditarHistoriaClinicaComponent implements OnInit {
+  error = ''
   dataForm:FormGroup = new FormGroup({})
   id!:number
   historiaClinica:HistoriaClinica = new HistoriaClinica()
@@ -39,7 +41,6 @@ export class EditarHistoriaClinicaComponent implements OnInit {
 
     this.historiaClinicaService.obtenerPorId(this.id).subscribe(datos => {
       this.historiaClinica = datos;
-      console.log(this.historiaClinica)
       this.formBuilding();
     })
   }
@@ -60,6 +61,8 @@ export class EditarHistoriaClinicaComponent implements OnInit {
 
     this.historiaClinicaService.actualizar(this.id, this.historiaClinica).subscribe(() =>{
       this.goToHistoriaClinica();
+    }, (error:HttpErrorResponse) => {
+      this.error = error.error
     })
   }
 

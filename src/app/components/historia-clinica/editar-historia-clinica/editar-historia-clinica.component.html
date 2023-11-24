@@ -2,6 +2,8 @@
 
     <h2 class="text-center text-red-500">Editar Detalle Clinico</h2>
 
+    <h5 class="text-center text-red-200" *ngIf="error"> {{ error }} </h5>
+
     <form [formGroup]="dataForm" (ngSubmit)="actualizarConsulta()">
         <div class="card flex justify-content-center">
             <span class="p-float-label my-3">

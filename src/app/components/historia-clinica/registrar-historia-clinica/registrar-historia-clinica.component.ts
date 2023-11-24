@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { HistoriaClinica } from 'src/app/models/historiaClinica';
 import { Mascota } from 'src/app/models/mascota';
 import { MascotaService } from 'src/app/services/mascota/mascota.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-registrar-historia-clinica',
@@ -13,6 +14,7 @@ import { MascotaService } from 'src/app/services/mascota/mascota.service';
 })
 export class RegistrarHistoriaClinicaComponent implements OnInit {
   
+  error = '';
   dataForm:FormGroup = new FormGroup({});
   historiaClinica:HistoriaClinica = new HistoriaClinica();
   mascotas!:Mascota[];
@@ -47,6 +49,11 @@ export class RegistrarHistoriaClinicaComponent implements OnInit {
     
     this.historiaClinicaService.guardar(this.historiaClinica).subscribe(() => {
       this.goToHistoriaClinica();
+
+    }, (error:HttpErrorResponse) => {
+      this.error = error.error
     })
+
   }
+
 }
