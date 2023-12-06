@@ -12,61 +12,50 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
-import { HistoriaClinicaComponent } from './components/historia-clinica/listar-historia-clinica/historia-clinica.component';
-import { RegistrarHistoriaClinicaComponent } from './components/historia-clinica/registrar-historia-clinica/registrar-historia-clinica.component';
-import { EditarHistoriaClinicaComponent } from './components/historia-clinica/editar-historia-clinica/editar-historia-clinica.component';
+import { ListarHistoriaClinicaComponent } from './components/historias-clinicas/listar-historia-clinica/historia-clinica.component';
+import { HistoriaClinicaComponent } from './components/historias-clinicas/historia-clinica/editar-historia-clinica.component';
 
-import { ListarDetallesComponent } from './components/detalle-historia-clinica/listar-detalles/listar-detalles.component';
-import { CrearDetalleComponent } from './components/detalle-historia-clinica/crear-detalle/crear-detalle.component';
-import { EditarDetalleComponent } from './components/detalle-historia-clinica/editar-detalle/editar-detalle.component';
+import { ListarDetallesComponent } from './components/detalles-historias-clinicas/listar-detalles/listar-detalles.component';
+import { DetalleClinicoComponent } from './components/detalles-historias-clinicas/detalle-clinico/detalle-clinico.component';
 
-import { ListarUsuarioComponent } from './components/usuario/listar-usuario/listar-usuario.component';
-import { CrearUsuarioComponent } from './components/usuario/crear-usuario/crear-usuario.component';
-import { EditarUsuarioComponent } from './components/usuario/editar-usuario/editar-usuario.component';
+import { ListarUsuarioComponent } from './components/usuarios/listar-usuarios/listar-usuario.component';
+import { UsuarioComponent } from './components/usuarios/usuario/usuario.component';
 
-import { ListarMascotaComponent } from './components/mascota/listar-mascota/listar-mascota.component';
-import { CrearMascotaComponent } from './components/mascota/crear-mascota/crear-mascota.component';
-import { EditarMascotaComponent } from './components/mascota/editar-mascota/editar-mascota.component';
+import { ListarMascotaComponent } from './components/mascotas/listar-mascotas/listar-mascota.component';
+import { MascotaComponent } from './components/mascotas/mascota/editar-mascota.component';
 
-import { ListarColaboradorComponent } from './components/colaborador/listar-colaborador/listar-colaborador.component';
-import { CrearColaboradorComponent } from './components/colaborador/crear-colaborador/crear-colaborador.component';
-import { EditarColaboradorComponent } from './components/colaborador/editar-colaborador/editar-colaborador.component';
-
-
-
+import { ListarColaboradorComponent } from './components/colaboradores/listar-colaboradores/listar-colaborador.component';
+import { ColaboradorComponent } from './components/colaboradores/colaborador/colaborador.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 
 @NgModule({
   declarations: [
+    
     AppComponent,
 
+    ListarHistoriaClinicaComponent,
     HistoriaClinicaComponent,
-    RegistrarHistoriaClinicaComponent,
-    EditarHistoriaClinicaComponent,
 
     ListarDetallesComponent,
-    CrearDetalleComponent,
-    EditarDetalleComponent,
+    DetalleClinicoComponent,
 
     ListarUsuarioComponent,
-    CrearUsuarioComponent,
-    EditarUsuarioComponent,
+    UsuarioComponent,
 
 
     ListarMascotaComponent,
-    CrearMascotaComponent,
-    EditarMascotaComponent,
+    MascotaComponent,
 
     ListarColaboradorComponent,
-    CrearColaboradorComponent,
-    EditarColaboradorComponent
+    ColaboradorComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule,
     ReactiveFormsModule,
     DropdownModule,
     BrowserAnimationsModule,

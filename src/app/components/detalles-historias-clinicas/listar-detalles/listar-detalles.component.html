@@ -1,0 +1,44 @@
+
+<h2 class="text-center">Detalles Clinicos</h2>
+<div class="card flex justify-content-center" >
+    <p-table [value]="detallesClinicos" [(selection)]="detallesClinicos"  dataKey="code" [tableStyle]="{'min-width': '50rem'}">
+        <ng-template pTemplate="header">
+            <tr>
+                <th scope="">ID</th>
+                <th scope="">Temperatura</th>
+                <th scope="">Peso</th>
+                <th scope="">Frecuencia Cardiaca</th>
+                <th scope="">Frecuencia Respiratoria</th>
+                <th scope="">Fecha Hora</th>
+                <th scope="">Alimentacion</th>
+                <th scope="">Habitad</th>
+                <th scope="">Observacion</th>
+                <th scope="">Historia Clinica</th>
+                <th scope="">Colaborador</th>
+                <th scope="">Acciones</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body"let-detalleClinico  >
+            
+            <tr [pSelectableRow]="detalleClinico">
+                <td> {{ detalleClinico.id }} </td>
+                <td> {{ detalleClinico.temperatura }} </td>
+                <td> {{ detalleClinico.peso }} </td>
+                <td> {{ detalleClinico.frecuenciaCardiaca }} </td>
+                <td> {{ detalleClinico.frecuenciaRespiratoria }} </td>
+                <td> {{ detalleClinico.fechaHora | date:"short" }} </td>
+                <td> {{ detalleClinico.alimentacion }} </td>
+                <td> {{ detalleClinico.habitad }} </td>
+                <td> {{ detalleClinico.observacion }} </td>
+                <td> {{ detalleClinico.historiaClinica.id }} </td>
+                <td> {{ detalleClinico.colaborador.nombre }} </td>
+                <td>
+                    <button  pButton pRipple label="Editar" class="p-button-warning" (click)="editarDetalles(detalleClinico.id)"></button>
+                    <button  pButton pRipple label="Eliminar" class="p-button-danger" (click)="eliminarDetalles(detalleClinico)"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+<div class="flex align-items-center justify-content-center">
+<button pButton pRipple label="Crear Nuevo Detalle" class="p-button-primary mt-2" routerLink="/detalle-clinico/nuevo"></button>
