@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SweetAlertsService } from 'src/app/services/sweet-alerts.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-editar-usuario',
@@ -15,6 +16,16 @@ export class UsuarioComponent implements OnInit {
   dataForm:FormGroup = new FormGroup({});
   usuario:Usuario = new Usuario();
   id!:number;
+  error : string = ''
+  idGuardado?:any
+
+  stateOptions:any[] = [{label:'Activo', value:true}, {label:'Inactivo', value:false}]
+  genero = [{gender:'Hombre'}, {gender:'Mujer'}, {gender:'Otro'}]
+  tipoDocumento = [
+    {label:'Cedula de Ciudadania'},
+    {label:'Tarjeta de Identidad'},
+    {label:'Cedula de Extranjeria'}
+  ]
 
   constructor(
     private route:ActivatedRoute,
@@ -27,34 +38,40 @@ export class UsuarioComponent implements OnInit {
   ngOnInit(): void {
 
     const id = this.route.snapshot.params['id'];
-
     this.formBuilding();
-
+    
     if(id !== 'nuevo'){
-
+      
       this.obtenerData();
+      localStorage.setItem('id', id)
+      this.idGuardado = localStorage.getItem('id')
     }
+    
   }
 
-  formBuilding(){
+  private formBuilding(){
     this.dataForm = this.fb.group({
       nombre: [ '', [Validators.required, Validators.maxLength(25)] ],
       apellido: [ '', [Validators.required, Validators.maxLength(25)] ],
-      tipoDocumento: [ '', [Validators.required, Validators.maxLength(25)] ],
+      tipoDocumento: [ null, [Validators.required, Validators.maxLength(30)] ],
       documentoIdentificacion: [ null, [Validators.required, Validators.maxLength(25)] ],
-      sexo: [ '', [Validators.required, Validators.maxLength(6)] ],
+      estado: [ true, [Validators.required] ],
+      sexo: [ null, [Validators.required, Validators.maxLength(6)] ],
     })
 
     this.dataForm.patchValue(this.usuario);
   }
 
-  obtenerData(){
+  private obtenerData(){
     this.id = this.route.snapshot.params['id'];
-
+    
     this.usuarioService.obtenerPorId(this.id).subscribe(datos => {
       this.usuario = datos;
-
       this.formBuilding()
+      // this.dataForm.get('nombre')?.disable()
+      // this.dataForm.get('apellido')?.disable()
+      // this.dataForm.get('tipoDocumento')?.disable()
+      // this.dataForm.get('documentoIdentificacion')?.disable()
     })
   }
 
@@ -68,24 +85,24 @@ export class UsuarioComponent implements OnInit {
     }
   }
 
-  registrarUsuario(){
+  private registrarUsuario(){
     this.usuario = this.dataForm.value;
-
+    
     this.usuarioService.registrar(this.usuario).subscribe(() => {
 
       this.sweetAlert.sweetAlertGuardar()
       this.goToUsuario()
-    })
+    },(error:HttpErrorResponse) => this.error = error.error )
   }
 
-  actualizarUsuario(){
+  private actualizarUsuario(){
     this.usuario = this.dataForm.value;
 
     this.usuarioService.actualizar(this.id, this.usuario).subscribe(() => {
 
       this.sweetAlert.sweetAlertActualizarName(this.usuario.nombre)
       this.goToUsuario()
-    })
+    }, (error:HttpErrorResponse) => this.error = error.error )
   }
 
   goToUsuario(){

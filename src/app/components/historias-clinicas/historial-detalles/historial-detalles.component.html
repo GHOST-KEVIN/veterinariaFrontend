@@ -1,11 +1,11 @@
 
-<h2 class="text-center">Detalles Clinicos</h2>
+<h2 class="text-center" *ngIf="!loading">Detalles clinicos de la mascota {{ historiaClinica.mascota.nombre }} </h2>
 
 <p-progressSpinner *ngIf="loading" class="flex justify-content-center"></p-progressSpinner>
 <app-alert *ngIf="detallesClinicos.length === 0 && !loading" ></app-alert>
 
 <div class="card flex justify-content-center" >
-    <p-table [value]="detallesClinicos" [(selection)]="detallesClinicos"  dataKey="code" [tableStyle]="{'min-width': '50rem'}" *ngIf="detallesClinicos.length > 0 && !loading">
+    <p-table [value]="detallesClinicos" [(selection)]="detallesClinicos"  dataKey="code" [tableStyle]="{'min-width': '50rem'}" *ngIf="detallesClinicos.length > 0">
         <ng-template pTemplate="header">
             <tr>
                 <th scope="col">ID</th>
@@ -17,34 +17,24 @@
                 <th scope="col">Alimentacion</th>
                 <th scope="col">Habitad</th>
                 <th scope="col">Observacion</th>
-                <th scope="col">Historia Clinica</th>
-                <th scope="col">Colaborador</th>
-                <th scope="col">Acciones</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body"let-detalleClinico  >
+            
             <tr [pSelectableRow]="detalleClinico">
                 <td> {{ detalleClinico.id }} </td>
                 <td> {{ detalleClinico.temperatura }} </td>
                 <td> {{ detalleClinico.peso }} </td>
                 <td> {{ detalleClinico.frecuenciaCardiaca }} </td>
                 <td> {{ detalleClinico.frecuenciaRespiratoria }} </td>
-                <td>
-                    <span>{{ detalleClinico.fechaHora | date:'d/M/y' }}</span><hr>
-                    <span>{{ detalleClinico.fechaHora | date:'mediumTime' }}</span>
-                </td>
+                <td> {{ detalleClinico.fechaHora | date:"short" }} </td>
                 <td> {{ detalleClinico.alimentacion }} </td>
                 <td> {{ detalleClinico.habitad }} </td>
                 <td> {{ detalleClinico.observacion }} </td>
-                <td> {{ detalleClinico.historiaClinica.id }} </td>
-                <td> {{ detalleClinico.colaborador.nombre }} </td>
-                <td>
-                    <button  pButton pRipple label="Editar" class="p-button-warning mb-2" (click)="editarDetalles(detalleClinico.id)"><i class="pi pi-pencil mr-1"></i></button>
-                    <button  pButton pRipple label="Eliminar" class="p-button-danger" (click)="eliminarDetalles(detalleClinico)"><i class="pi pi-trash mr-1"></i></button>
-                </td>
             </tr>
         </ng-template>
     </p-table>
 </div>
 <div class="flex align-items-center justify-content-center">
-<button pButton pRipple label="Crear Nuevo Detalle" class="p-button-primary mt-2" routerLink="/detalle-clinico/nuevo"><i class="pi pi-plus mr-1"></i></button>
+    <button pButton pRipple label="Regresar" class="p-button-danger mt-1" routerLink="/historias-clinicas"><i class="pi pi-arrow-left mr-2"></i></button>
+</div>

@@ -10,7 +10,9 @@ import { SweetAlertsService } from 'src/app/services/sweet-alerts.service';
   styleUrls: ['./listar-usuario.component.css']
 })
 export class ListarUsuarioComponent implements OnInit {
-  usuarios!:Usuario[]
+
+  usuarios : Usuario[] = []
+  loading !: boolean
 
   constructor(
     private usuarioService:UsuarioService,
@@ -19,12 +21,18 @@ export class ListarUsuarioComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+
     this.todosLosUsuarios();
+    localStorage.removeItem('id')
   }
 
   private todosLosUsuarios(){
+
+    this.loading = true
+
     this.usuarioService.obtener().subscribe(usuario => {
       this.usuarios = usuario;
+      this.loading = false
     })
   }
 
@@ -41,7 +49,5 @@ export class ListarUsuarioComponent implements OnInit {
         this.usuarioService.eliminar(usuario.id).subscribe(() => this.todosLosUsuarios() )
       }
     })
-    
-    this.todosLosUsuarios();
   }
 }

@@ -10,7 +10,9 @@ import { SweetAlertsService } from 'src/app/services/sweet-alerts.service';
   styleUrls: ['./listar-detalles.component.css']
 })
 export class ListarDetallesComponent implements OnInit {
-  detallesClinicos! : Detalles[]
+  
+  detallesClinicos: Detalles[] = []
+  loading!:boolean
 
   constructor(
     private router:Router,
@@ -24,8 +26,12 @@ export class ListarDetallesComponent implements OnInit {
   }
 
   private obtenerDetalles(){
+
+    this.loading = true
+
     this.detalleHistoriaClinicaService.obtener().subscribe(datos => {
       this.detallesClinicos = datos;
+      this.loading = false
     })
   }
 

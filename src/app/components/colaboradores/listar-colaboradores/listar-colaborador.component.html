@@ -1,6 +1,10 @@
 <h2 class="text-center">Lista de Colaboradores</h2>
+
+<p-progressSpinner *ngIf="loading" class="flex justify-content-center"></p-progressSpinner>
+<app-alert  *ngIf="colaboradores.length === 0 && !loading"></app-alert>
+
 <div class="card flex justify-content-center" >
-    <p-table [value]="colaboradores" [(selection)]="colaboradores"  dataKey="code" [tableStyle]="{'min-width': '50rem'}">
+    <p-table [value]="colaboradores" [(selection)]="colaboradores"  dataKey="code" [tableStyle]="{'min-width': '50rem'}" *ngIf="colaboradores.length > 0">
         <ng-template pTemplate="header">
             <tr>
                 <th scope="col">ID</th>
@@ -22,13 +26,14 @@
                 <td> {{ colaborador.cargo }} </td>
                 <td> {{ colaborador.especialidad }} </td>
                 <td> {{ colaborador.tipoDocumento }} </td>
-                <td> {{ colaborador.documentoIdentificacion }} </td>
+                <td> {{ colaborador.documentoIdentificacion | number }} </td>
                 <td>
-                    <button  pButton pRipple label="Editar" class="p-button-warning" (click)="editarColaborador(colaborador.id)"></button>
+                    <button  pButton pRipple label="Editar" class="p-button-warning" (click)="editarColaborador(colaborador.id)"><i class="pi pi-pencil mr-1"></i></button>
                 </td>
             </tr>
         </ng-template>
     </p-table>
 </div>
-<div class="flex align-items-center justify-content-center">
-<button pButton pRipple label="Agregar colaborador" class="p-button-primary mt-2" routerLink="/colaborador/nuevo"></button>
+<div class="flex justify-content-center">
+    <button pButton pRipple label="Agregar colaborador" class="p-button-primary mt-2 " routerLink="/colaborador/nuevo"><i class="pi pi-plus mr-1"></i></button>
+</div>

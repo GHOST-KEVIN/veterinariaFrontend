@@ -18,6 +18,7 @@ export class MascotaComponent implements OnInit {
   id!:number
   mascota:Mascota = new Mascota()
   usuarios!:Usuario[]
+  genero = [{gender:'Hembra'},{gender:'Macho'}]
 
   constructor(
     private router:Router,
@@ -51,15 +52,15 @@ export class MascotaComponent implements OnInit {
       this.FormBuilding()
     })
   }
-  
+
   private FormBuilding() {
 
     this.dataForm = this.fb.group({
       
       nombre: ['', [Validators.required, Validators.maxLength(15)]],
       raza: ['', [Validators.required, Validators.maxLength(20)]],
-      sexo: ['', [Validators.required, Validators.maxLength(15)]],
-      usuarioId: ['', [Validators.required, Validators.maxLength(1)]]
+      sexo: [ null, [Validators.required, Validators.maxLength(15)]],
+      usuarioId: [ null, [Validators.required, Validators.maxLength(1)]]
     });
 
     this.dataForm.patchValue(this.mascota);

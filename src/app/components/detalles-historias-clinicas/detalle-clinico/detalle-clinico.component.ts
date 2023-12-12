@@ -15,6 +15,7 @@ import { SweetAlertsService } from 'src/app/services/sweet-alerts.service';
   styleUrls: ['./detalle-clinico.component.css']
 })
 export class DetalleClinicoComponent implements OnInit {
+  
   dataForm:FormGroup = new FormGroup({})
   id!:number;
   detalles:Detalles = new Detalles()
@@ -56,8 +57,8 @@ export class DetalleClinicoComponent implements OnInit {
       alimentacion: [ '', [Validators.required, Validators.maxLength(15)] ],
       habitad: [ '', [Validators.required, Validators.maxLength(15)] ],
       observacion: [ '', [Validators.required, Validators.maxLength(255)] ],
-      historiaClinicaId: [ '', [Validators.required] ],
-      colaboradorId: [ '', [Validators.required] ]
+      historiaClinicaId: [ null, [Validators.required] ],
+      colaboradorId: [ null, [Validators.required] ]
     })
 
     this.dataForm.patchValue(this.detalles)
@@ -66,9 +67,10 @@ export class DetalleClinicoComponent implements OnInit {
   private obtenerData(){
     this.id = this.route.snapshot.params['id'];
 
-    this.detalleService.obtenerPorId(this.id).subscribe(data => {
+    this.detalleService.obtenerPorId(this.id).subscribe((data:any) => {
+      
+      data.fechaHora = new Date(data.fechaHora)
       this.detalles = data;
-
       this.fomrBuilding()
     })
   }

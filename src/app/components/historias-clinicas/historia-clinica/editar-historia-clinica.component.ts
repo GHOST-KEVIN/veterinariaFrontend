@@ -46,7 +46,11 @@ export class HistoriaClinicaComponent implements OnInit {
 
     this.id = this.route.snapshot.params['id'];
 
-    this.historiaClinicaService.obtenerPorId(this.id).subscribe(datos => {
+    this.historiaClinicaService.obtenerPorId(this.id).subscribe((datos:any) => {
+
+      let fecha = datos.fechaCreacion.split("-");
+      datos.fechaCreacion = new Date(fecha[0], fecha[1] - 1, fecha[2]);
+      
       this.historiaClinica = datos;
       this.formBuilding();
     })
@@ -85,7 +89,6 @@ export class HistoriaClinicaComponent implements OnInit {
   private registrarConsulta(){
 
     this.historiaClinica = this.dataForm.value
-    
     this.historiaClinicaService.guardar(this.historiaClinica).subscribe(() => {
 
       this.sweetAlert.sweetAlertGuardar()

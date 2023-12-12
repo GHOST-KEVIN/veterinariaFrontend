@@ -1,3 +1,4 @@
+import { Detalles } from "./detalles";
 import { Mascota } from "./mascota";
 
 export class HistoriaClinica{
@@ -5,4 +6,5 @@ export class HistoriaClinica{
     fechaCreacion!:Date;
     mascotaId!:number;
     mascota:Mascota = new Mascota()
+    detallesClinicos !: Detalles[]
 }

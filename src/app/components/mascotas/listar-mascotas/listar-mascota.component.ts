@@ -11,7 +11,8 @@ import { SweetAlertsService } from 'src/app/services/sweet-alerts.service';
 })
 export class ListarMascotaComponent implements OnInit {
 
-  mascotas!:Mascota[]
+  mascotas:Mascota[] = []
+  loading!:boolean
 
   constructor(
     private mascotaService:MascotaService,
@@ -20,12 +21,17 @@ export class ListarMascotaComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+
     this.todasLasMascotas()
   }
 
   private todasLasMascotas(){
+
+    this.loading = true
+
     this.mascotaService.obtener().subscribe( mascota => {
       this.mascotas = mascota;
+      this.loading = false
     })
   }
 
@@ -37,9 +43,10 @@ export class ListarMascotaComponent implements OnInit {
 
     this.sweetAlert.sweetAlertEliminarName(mascota.nombre).then( (resp) => {
       if(resp.value){
-
+        
         this.mascotaService.eliminar(mascota.id).subscribe(() => this.todasLasMascotas() )
       }
+      
     })
   }
 }

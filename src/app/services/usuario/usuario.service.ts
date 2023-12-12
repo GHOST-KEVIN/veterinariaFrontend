@@ -14,7 +14,7 @@ export class UsuarioService {
     return this.httpCliente.get<Usuario[]>("http://localhost:8084/api/usuario")
   }
 
-  obtenerPorId(id:number){
+  obtenerPorId(id:number): Observable<Usuario>{
     return this.httpCliente.get<Usuario>("http://localhost:8084/api/usuario/" + id)
   }
 
@@ -30,3 +30,4 @@ export class UsuarioService {
     return this.httpCliente.delete("http://localhost:8084/api/usuario/" + id)
   }
 }
+// https://www.tutorialesprogramacionya.com/angularya/index.php?inicio=80

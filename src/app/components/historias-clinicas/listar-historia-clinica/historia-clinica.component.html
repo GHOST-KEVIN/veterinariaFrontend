@@ -1,28 +1,33 @@
 <h2 class="text-center">Consultas</h2>
+
+<app-alert *ngIf="historiasClinicas.length === 0 && !loading"></app-alert>
+<p-progressSpinner *ngIf="loading" class="flex justify-content-center"></p-progressSpinner>
+
 <div class="card flex justify-content-center">
-    <p-table [value]="historiasClinicas" [(selection)]="historiasClinicas" dataKey="code" [tableStyle]="{'min-width': '50rem'}">
+    <p-table [value]="historiasClinicas" [(selection)]="historiasClinicas" dataKey="code" [tableStyle]="{'min-width': '50rem'}" *ngIf="historiasClinicas.length > 0 && !loading">
         <ng-template pTemplate="header">
             <tr>
-                <th>ID</th>
-                <th>Fecha</th>
-                <th>Mascota</th>
-                <th>Acciones</th>
+                <th scope="col">ID</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Mascota</th>
+                <th scope="col">Acciones</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body"let-historiaClinica >
             
             <tr [pSelectableRow]="historiaClinica">
-                <td> {{historiaClinica.id}} </td>
-                <td> {{historiaClinica.fechaCreacion}} </td>
+                <td> {{ historiaClinica.id }} </td>
+                <td> {{ historiaClinica.fechaCreacion | date:'d/M/y' }} </td>
                 <td> {{ historiaClinica.mascota.nombre }} </td>
                 <td>
-                    <button  pButton pRipple label="Editar" class="p-button-warning" (click)="editar(historiaClinica.id)"></button>
-                    <button  pButton pRipple label="Eliminar" class="p-button-danger" (click)="eliminarHistoriaClinica(historiaClinica)"></button>
+                    <button  pButton pRipple label="Editar" class="p-button-warning mr-2" (click)="editar(historiaClinica.id)"><i class="pi pi-pencil mr-1"></i></button>
+                    <button  pButton pRipple label="Eliminar" class="p-button-danger mr-2" (click)="eliminarHistoriaClinica(historiaClinica)"><i class="pi pi-trash mr-1"></i></button>
+                    <button  pButton pRipple label="Ver detalles Clinicos" class="p-button-info" [routerLink]="['/historia-clinica',historiaClinica.id,'detalles']"><i class="pi pi-eye mr-1"></i></button>
                 </td>
             </tr>
         </ng-template>
     </p-table>
 </div>
 <div class="flex align-items-center justify-content-center">
-    <button pButton pRipple label="Crear nueva consulta" class="p-button-primary mt-2" routerLink="/historia-clinica/nuevo"></button>
+    <button pButton pRipple label="Crear consulta" class="p-button-primary mt-2" routerLink="/historia-clinica/nuevo"><i class="pi pi-plus mr-1"></i></button>
 </div>

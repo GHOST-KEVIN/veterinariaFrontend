@@ -4,6 +4,7 @@ import { ColaboradorService } from '../../../services/colaborador/colaborador.se
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SweetAlertsService } from 'src/app/services/sweet-alerts.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-editar-colaborador',
@@ -14,7 +15,14 @@ export class ColaboradorComponent implements OnInit {
 
   dataForm:FormGroup = new FormGroup({})
   id!:number;
-  colaborador!:Colaborador
+  colaborador = new Colaborador()
+  errorMessage : string = ''
+
+  tipoDocumento = [
+    {label:'Cedula de Ciudadania'},
+    {label:'Tarjeta de Identidad'},
+    {label:'Cedula de Extranjeria'}
+  ]
 
   constructor(
     private colaboradorService:ColaboradorService,
@@ -34,7 +42,7 @@ export class ColaboradorComponent implements OnInit {
     }
   }
 
-  obtenerData(){
+  private obtenerData(){
     this.id = this.route.snapshot.params['id'];
 
     this.colaboradorService.obtenerPorId(this.id).subscribe(data => {
@@ -44,7 +52,7 @@ export class ColaboradorComponent implements OnInit {
     })
   }
 
-  formBuilding(){
+  private formBuilding(){
 
     this.dataForm = this.fb.group({
 
@@ -52,7 +60,7 @@ export class ColaboradorComponent implements OnInit {
       apellido: [ '', [Validators.required, Validators.maxLength(25)] ],
       cargo: [ '', [Validators.required, Validators.maxLength(25)] ],
       especialidad: [ '', [Validators.required, Validators.maxLength(25)] ],
-      tipoDocumento: [ '', [Validators.required, Validators.maxLength(2)] ],
+      tipoDocumento: [ null, [Validators.required, Validators.maxLength(30)] ],
       documentoIdentificacion: [ null,[Validators.required] ]
     })
 
@@ -71,7 +79,7 @@ export class ColaboradorComponent implements OnInit {
     }
   }
 
-  registrarColaborador(){
+  private registrarColaborador(){
 
     this.colaborador = this.dataForm.value;
 
@@ -79,10 +87,10 @@ export class ColaboradorComponent implements OnInit {
 
       this.sweetAlert.sweetAlertGuardar()
       this.goToColaboradores()
-    })
+    }, (error:HttpErrorResponse) => this.errorMessage = error.error )
   }
 
-  actualizarColaborador(){
+  private actualizarColaborador(){
 
     this.colaborador = this.dataForm.value;
 
@@ -90,7 +98,7 @@ export class ColaboradorComponent implements OnInit {
 
       this.sweetAlert.sweetAlertActualizarName(this.colaborador.nombre)
       this.goToColaboradores()
-    })
+    }, (error:HttpErrorResponse) => this.errorMessage = error.error )
   }
 
   goToColaboradores(){
