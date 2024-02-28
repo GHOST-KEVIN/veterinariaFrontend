@@ -6,5 +6,5 @@ export class Mascota{
     raza!:string;
     sexo!:string;
     usuarioId!:number;
-    usuario:Usuario = new Usuario()
+    // usuario:Usuario = new Usuario()
 }

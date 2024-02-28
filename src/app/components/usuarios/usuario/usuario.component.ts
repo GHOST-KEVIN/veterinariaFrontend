@@ -49,6 +49,11 @@ export class UsuarioComponent implements OnInit {
     
   }
 
+  get nombreInvalido(){
+    let nombre = this.dataForm.get('nombre')
+    return nombre?.invalid && nombre?.errors && (nombre.dirty || nombre.touched)
+  }
+
   private formBuilding(){
     this.dataForm = this.fb.group({
       nombre: [ '', [Validators.required, Validators.maxLength(25)] ],
@@ -68,7 +73,7 @@ export class UsuarioComponent implements OnInit {
     this.usuarioService.obtenerPorId(this.id).subscribe(datos => {
       this.usuario = datos;
       this.formBuilding()
-      // this.dataForm.get('nombre')?.disable()
+      this.dataForm.get('nombre')?.disable()
       // this.dataForm.get('apellido')?.disable()
       // this.dataForm.get('tipoDocumento')?.disable()
       // this.dataForm.get('documentoIdentificacion')?.disable()
@@ -102,7 +107,7 @@ export class UsuarioComponent implements OnInit {
 
       this.sweetAlert.sweetAlertActualizarName(this.usuario.nombre)
       this.goToUsuario()
-    }, (error:HttpErrorResponse) => this.error = error.error )
+    }, (error:HttpErrorResponse) => this.error = error.error.message )
   }
 
   goToUsuario(){

@@ -37,6 +37,8 @@ const routes: Routes = [
   { path:'colaboradores', component:ListarColaboradorComponent },
   { path:'colaborador/:id', component:ColaboradorComponent },
 
+  { path: 'usuario', loadChildren: () => import('./modules/usuario/usuario.module').then(m => m.UsuarioModule) },
+
   {path:'**', pathMatch:'full', redirectTo:'colaboradores'}
 ];
 

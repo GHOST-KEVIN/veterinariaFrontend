@@ -5,7 +5,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { PrimeNgModule } from './modules/prime-ng/prime-ng.module';
 
 import { AppComponent } from './app.component';
 
@@ -28,6 +27,7 @@ import { ColaboradorComponent } from './components/colaboradores/colaborador/col
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { HistorialDetallesComponent } from './components/historias-clinicas/historial-detalles/historial-detalles.component';
+import { SharedModule } from './modules/shared/shared.module';
 
 
 @NgModule({
@@ -50,7 +50,7 @@ import { HistorialDetallesComponent } from './components/historias-clinicas/hist
     
     ListarColaboradorComponent,
     ColaboradorComponent,
-    NavBarComponent,
+    // NavBarComponent,
     AlertComponent,
     HistorialDetallesComponent,
   ],
@@ -60,8 +60,8 @@ import { HistorialDetallesComponent } from './components/historias-clinicas/hist
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    PrimeNgModule,  // Modulos de primeNg
-    FormsModule
+    FormsModule,
+    SharedModule
     
   ],
   providers: [],
