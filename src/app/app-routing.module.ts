@@ -1,49 +1,25 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-
-import { ListarHistoriaClinicaComponent } from './components/historias-clinicas/listar-historia-clinica/historia-clinica.component';
-import { HistoriaClinicaComponent } from './components/historias-clinicas/historia-clinica/editar-historia-clinica.component';
-import { HistorialDetallesComponent } from './components/historias-clinicas/historial-detalles/historial-detalles.component';
-
-import { ListarDetallesComponent } from './components/detalles-historias-clinicas/listar-detalles/listar-detalles.component';
-import { DetalleClinicoComponent } from './components/detalles-historias-clinicas/detalle-clinico/detalle-clinico.component';
-
-import { ListarUsuarioComponent } from './components/usuarios/listar-usuarios/listar-usuario.component';
-import { UsuarioComponent } from './components/usuarios/usuario/usuario.component';
-import { UsuarioMascotasComponent } from './components/usuarios/usuario-mascotas/usuario-mascotas.component';
-
-import { ListarMascotaComponent } from './components/mascotas/listar-mascotas/listar-mascota.component';
-import { MascotaComponent } from './components/mascotas/mascota/editar-mascota.component';
-
-import { ListarColaboradorComponent } from './components/colaboradores/listar-colaboradores/listar-colaborador.component';
-import { ColaboradorComponent } from './components/colaboradores/colaborador/colaborador.component';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
 
-  { path:'historias-clinicas', component:ListarHistoriaClinicaComponent },
-  { path:'historia-clinica/:id', component:HistoriaClinicaComponent },
-  { path:'historia-clinica/:id/detalles', component:HistorialDetallesComponent },
-
-  { path:'detalle-historia-clinica', component:ListarDetallesComponent },
-  { path:'detalle-clinico/:id', component:DetalleClinicoComponent },
-  
-  { path:'usuarios', component:ListarUsuarioComponent },
-  { path:'usuario/:id', component:UsuarioComponent },
-  { path:'usuario/:id/mascotas', component:UsuarioMascotasComponent }, 
-
-  { path:'mascotas', component:ListarMascotaComponent },
-  { path:'mascota/:id', component:MascotaComponent },
-
-  { path:'colaboradores', component:ListarColaboradorComponent },
-  { path:'colaborador/:id', component:ColaboradorComponent },
+  {path:'', redirectTo:'colaborador/listar-colaboradores', pathMatch:'full'},
 
   { path: 'usuario', loadChildren: () => import('./modules/usuario/usuario.module').then(m => m.UsuarioModule) },
 
-  {path:'**', pathMatch:'full', redirectTo:'colaboradores'}
+  { path: 'colaborador', loadChildren: () => import('./modules/colaborador/colaborador.module').then(m => m.ColaboradorModule) },
+
+  { path: 'mascota', loadChildren: () => import('./modules/mascota/mascota.module').then(m => m.MascotaModule) },
+
+  { path: 'historia-clinica', loadChildren: () => import('./modules/historia-clinica/historia-clinica.module').then(m => m.HistoriaClinicaModule) },
+
+  { path: 'detalle-historia-clinica', loadChildren: () => import('./modules/detalle-historia-clinica/detalle-historia-clinica.module').then(m => m.DetalleHistoriaClinicaModule) },
+
+  {path:'**', redirectTo:'colaborador/listar-colaboradores', pathMatch:'full'}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

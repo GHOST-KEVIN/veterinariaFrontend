@@ -13,6 +13,11 @@ import { RippleModule } from 'primeng/ripple';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { TabMenuModule } from 'primeng/tabmenu';
+import { ToolbarModule } from 'primeng/toolbar';
+import { DialogModule } from 'primeng/dialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
@@ -25,10 +30,15 @@ import { TabMenuModule } from 'primeng/tabmenu';
   exports: [
     NavbarComponent,
 
+    FormsModule,
+    ReactiveFormsModule,
+
     CommonModule,
+    DialogModule,
     DropdownModule,
     CalendarModule,
     TableModule,
+    ToolbarModule,
     InputTextModule,
     ButtonModule,
     InputNumberModule,
@@ -36,7 +46,10 @@ import { TabMenuModule } from 'primeng/tabmenu';
     ProgressSpinnerModule,
     MessagesModule,
     RippleModule,
-    KeyFilterModule
+    KeyFilterModule,
+    ConfirmDialogModule,
+    TooltipModule,
+    
   ]
 })
 export class SharedModule { }

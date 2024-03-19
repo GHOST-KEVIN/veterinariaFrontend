@@ -1,0 +1,328 @@
+<app-table
+    [setTitleTable]="titleTable"
+    [data]="detallesClinicos"
+    [columns]="tableColumns"
+    [filtersField]="filterField"
+    [setTableConfig]="tableConfig"
+    (action)="onTableAction($event)"
+    >
+
+</app-table>
+
+<p-dialog
+    [(visible)]="dialog"
+    [style]="{ width: '550px' }"
+    header="{{tituloDialog}}"
+    [modal]="true"
+    [draggable]="false"
+    [closable]="false"
+    styleClass="p-fluid p-input-filled"
+    >
+
+    <ng-template pTemplate="content">
+       <div [formGroup]="detallesClinicosForm">
+
+            <div class="formgrid grid">
+
+                <div class="field col-12 sm:col-6">
+                    <span class="p-float-label">
+                        <p-inputNumber
+                            inputId="temperatura"
+                            formControlName="temperatura"
+                            mode="decimal"
+                            [minFractionDigits]="2"
+                            [maxFractionDigits]="2"
+                            prefix="↑ "
+                            suffix=" ℃"
+                            [min]="-100"
+                            [max]="100"
+                            >
+                        </p-inputNumber>
+                        <label for="temperatura">Temperatura</label>
+                    </span>
+                    <small class="p-error" *ngIf="validarCampo('temperatura')">Completa este campo.</small>
+                </div>
+                <div class="field col-12 sm:col-6">
+                    <span class="p-float-label">
+                        <p-inputNumber
+                            inputId="peso"
+                            formControlName="peso"
+                            mode="decimal"
+                            [minFractionDigits]="2"
+                            [maxFractionDigits]="2"
+                            suffix=" kg"
+                            [min]="-100"
+                            [max]="100"
+                            >
+                        </p-inputNumber>
+                        <label for="peso">Peso</label>
+                    </span>
+                    <small class="p-error" *ngIf="validarCampo('peso')">Completa este campo.</small>
+                </div>
+                
+            </div>
+
+            <div class="formgrid grid">
+
+                <div class="field col-12 sm:col-6">
+                    <span class="p-float-label">
+                        <input
+                            id="frecuenciaCardiaca"
+                            pInputText
+                            formControlName="frecuenciaCardiaca"
+                            class="w-full"
+                            [maxlength]="7"
+                            >
+                        <label for="frecuenciaCardiaca">Frecuencial Cardiaca</label>
+                    </span>
+                    <small class="p-error" *ngIf="validarCampo('frecuenciaCardiaca')">Completa este campo.</small>
+                </div>
+                <div class="field col-12 sm:col-6">
+                    <span class="p-float-label">
+                        <input
+                            id="frecuenciaRespiratoria"
+                            pInputText
+                            formControlName="frecuenciaRespiratoria"
+                            class="w-full"
+                            [maxlength]="7"
+                            >
+                        <label for="frecuenciaRespiratoria">Frecuencia Respiratoria</label>
+                    </span>
+                    <small class="p-error" *ngIf="validarCampo('frecuenciaRespiratoria')">Completa este campo.</small>
+                </div>
+                
+            </div>
+
+            <div class="formgrid grid">
+
+                <div class="field col-12 sm:col-6">
+                    <span class="p-float-label">
+                        <p-calendar
+                            inputId="fechaHora"
+                            formControlName="fechaHora"
+                            dateFormat="dd/mm/yy"
+                            [showTime]="true"
+                            [showSeconds]="true"
+                            appendTo="body"
+                            >
+                        </p-calendar>
+                        <label for="fechaHora">Fecha Hora</label>
+                    </span>
+                    <small class="p-error" *ngIf="validarCampo('fechaHora')">Completa este campo.</small>
+                </div>
+                <div class="field col-12 sm:col-6">
+                    <span class="p-float-label">
+                        <input
+                            id="alimentacion"
+                            pInputText
+                            formControlName="alimentacion"
+                            class="w-full"
+                            >
+                        <label for="alimentacion">Alimentación</label>
+                    </span>
+                    <small class="p-error" *ngIf="validarCampo('alimentacion')">Completa este campo.</small>
+                </div>
+                
+            </div>
+
+            <div class="formgrid grid">
+
+                <div class="field col-12 sm:col-6">
+                    <span class="p-float-label">
+                        <input
+                            id="habitad"
+                            pInputText
+                            formControlName="habitad"
+                            class="w-full"
+                            >
+                        <label for="habitad">Habitad</label>
+                    </span>
+                    <small class="p-error" *ngIf="validarCampo('habitad')">Completa este campo.</small>
+                </div>
+                <div class="field col-12 sm:col-6">
+                    <span class="p-float-label">
+                        <input
+                            id="observacion"
+                            pInputText
+                            formControlName="observacion"
+                            class="w-full"
+                            [maxlength]="200"
+                            >
+                        <label for="observacion">Observación</label>
+                    </span>
+                    <small class="p-error" *ngIf="validarCampo('observacion')">Completa este campo.</small>
+                </div>
+                
+            </div>
+
+            <div class="formgrid grid">
+
+                <div class="field col-12 sm:col-6">
+                    <span class="p-float-label">
+                        <p-dropdown
+                            inputId="historiaClinicaId"
+                            formControlName="historiaClinicaId"
+                            [options]="historiasClinicas"
+                            optionLabel="fechaCreacion"
+                            optionValue="id"
+                            appendTo="body"
+                            (onShow)="obtenerHistoriasClinicas()"
+                            >
+                        </p-dropdown>
+                        <label for="historiaClinicaId">Historia Clinica</label>
+                    </span>
+                    <small class="p-error" *ngIf="validarCampo('historiaClinicaId')">Completa este campo.</small>
+                </div>
+                <div class="field col-12 sm:col-6">
+                    <span class="p-float-label">
+                        <p-dropdown
+                            inputId="colaboradorId"
+                            placeholder="&nbsp;"
+                            formControlName="colaboradorId"
+                            [options]="colaboradores"
+                            optionValue="id"
+                            appendTo="body"
+                            (onShow)="obtenerColaboradores()"
+                            >
+
+                            <ng-template let-colaborador pTemplate="item">
+                                <div> {{colaborador.nombres}} {{colaborador.apellidos}} </div>
+                            </ng-template>
+                            
+                            <ng-template let-colaborador pTemplate="selectedItem">
+                                <div>{{colaborador.nombres}} {{colaborador.apellidos}}</div>
+                            </ng-template>
+
+                        </p-dropdown>
+                        <label for="colaboradorId">Colaborador</label>
+                    </span>
+                    <small class="p-error" *ngIf="validarCampo('colaboradorId')">Completa este campo.</small>
+                </div>
+                
+            </div>
+
+       </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <div class="flex justify-content-evenly">
+
+            <p-button
+                label="Cerrar"
+                severity="danger"
+                (click)="hideDialog()"
+                >
+            </p-button>
+            <p-button
+                label="Guardar"
+                severity="success"
+                *ngIf="btnGuardar"
+                (click)="crear()"
+                >
+            </p-button>
+            <p-button
+                label="Actualizar"
+                severity="success"
+                *ngIf="btnActualizar"
+                (click)="actualizar()"
+                >
+            </p-button>
+        </div>
+    </ng-template>
+
+</p-dialog>
+
+<p-confirmDialog
+    #cd
+    [style]="{ width: '450px' }"
+    [closable]="false"
+    >
+
+    <ng-template pTemplate="headless" let-message>
+        <div class="flex flex-column align-items-center p-5 surface-overlay border-round">
+            <div class="border-circle bg-primary inline-flex justify-content-center align-items-center h-6rem w-6rem -mt-8">
+                <i class="pi pi-question text-5xl"></i>
+            </div>
+            <span class="font-bold text-2xl block mb-2 mt-4">{{ message.header }}</span>
+            
+            <p class="mb-0" [innerHTML]="message.message">
+                <i class="pi pi pi-info-circle"></i>
+            </p>
+            <div class="flex justify-content-evenly flex-wrap gap-2 mt-4">
+                <p-button
+                    label="No"
+                    [outlined]="true"
+                    severity="danger"
+                    (click)="cd.reject()"
+                    >
+                </p-button>
+                <p-button
+                    label="Si"
+                    [outlined]="true"
+                    severity="success"
+                    (click)="cd.accept()"
+                    >
+                </p-button>
+            </div>
+        </div>
+    </ng-template>
+
+</p-confirmDialog>
+
+<p-dialog
+    [(visible)]="observar"
+    [style]="{ width: '400px' }"
+    header="{{tituloDialogObservar}}"
+    [modal]="true"
+    [draggable]="false"
+    >
+
+    <ng-template pTemplate="content">
+
+       <div class="formgrid grid">
+            <div class="field col-12 sm:col-6">
+                <span>
+                    <strong>Nombres</strong>
+                </span>
+                <div class="mt-1"> {{ colaborador.nombres }} </div>
+            </div>
+            <div class="field col-12 sm:col-6">
+                <span>
+                    <strong>Apellidos</strong>
+                </span>
+                <div class="mt-1"> {{ colaborador.apellidos }} </div>
+            </div>
+        </div>
+       <div class="formgrid grid">
+            <div class="field col-12 sm:col-6">
+                <span>
+                    <strong>Tipo Documento</strong>
+                </span>
+                <div class="mt-1"> {{ colaborador.tipoDocumento }} </div>
+            </div>
+            <div class="field col-12 sm:col-6">
+                <span>
+                    <strong>Numero Documento</strong>
+                </span>
+                <div class="mt-1"> {{ colaborador.documentoIdentificacion }} </div>
+            </div>
+        </div>
+
+       <div class="formgrid grid">
+            <div class="field col-12 sm:col-6">
+                <span>
+                    <strong>Tipo Documento</strong>
+                </span>
+                <div class="mt-1"> {{ colaborador.cargo }} </div>
+            </div>
+            <div class="field col-12 sm:col-6">
+                <span>
+                    <strong>Numero Documento</strong>
+                </span>
+                <div class="mt-1"> {{ colaborador.especialidad }} </div>
+            </div>
+        </div>
+        
+    </ng-template>
+
+</p-dialog>

@@ -1,4 +1,13 @@
-<!-- <app-nav-bar></app-nav-bar> -->
+<p-toast>
+    <ng-template pTemplate="message" let-message>
+        <div class="flex flex-column align-items-start" style="flex: 1">
+            <div class="flex align-items-center gap-2">
+                <span class="font-bold text-900 text-lg">{{message.summary}}</span>
+            </div>
+            <div class="font-normal text-base mt-3" [innerHTML]="message.detail"></div>
+        </div>
+    </ng-template>
+</p-toast>
 <app-navbar></app-navbar>
 <div class="container" role="main">
     <router-outlet></router-outlet>

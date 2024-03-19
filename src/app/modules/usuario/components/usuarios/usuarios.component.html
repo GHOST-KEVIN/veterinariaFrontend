@@ -1,0 +1,189 @@
+<div class="card">
+    <app-table
+        [setTitleTable]="titleTable"
+        [data]="usuarios"
+        [columns]="tableColumns"
+        [filtersField]="filterField"
+        [setTableConfig]="tableConfig"
+        (action)="onTableAction($event)"
+        >
+    </app-table>
+</div>
+
+<p-dialog
+    [(visible)]="dialog"
+    [style]="{ width: '550px' }"
+    header="{{tituloDialog}}"
+    [modal]="true"
+    [draggable]="false"
+    [closable]="false"
+    styleClass="p-fluid p-input-filled"
+    >
+
+    <ng-template pTemplate="content">
+       <div [formGroup]="usuariosForm">
+
+            <div class="formgrid grid">
+
+                <div class="field col-12 sm:col-6">
+                    <span class="p-float-label">
+                        <input 
+                            id="nombres"
+                            pInputText 
+                            formControlName="nombres"
+                            >
+                        <label for="nombres">Nombres</label>
+                    </span>
+                    <small class="p-error" *ngIf="validarCampo('nombres')">Completa este campo.</small>
+                </div>
+                <div class="field col-12 sm:col-6">
+                    <span class="p-float-label">
+                        <input 
+                            id="apellidos"
+                            pInputText 
+                            formControlName="apellidos"
+                            class="w-full"
+                            >
+                        <label for="apellidos">Apellidos</label>
+                    </span>
+                    <small class="p-error" *ngIf="validarCampo('apellidos')">Completa este campo.</small>
+                </div>
+                
+            </div>
+
+            <div class="formgrid grid">
+
+                <div class="field col-12 sm:col-6">
+                    <span class="p-float-label">
+                        <p-dropdown
+                            inputId="tipoDocumento"
+                            formControlName="tipoDocumento"
+                            [options]="tipoDocumento"
+                            optionLabel="nombre"
+                            optionValue="value"
+                            appendTo="body"
+                            >
+                        </p-dropdown>
+                        <label for="tipoDocumento">Tipo Documento</label>
+                    </span>
+                    <small class="p-error" *ngIf="validarCampo('tipoDocumento')">Completa este campo.</small>
+                </div>
+                <div class="field col-12 sm:col-6">
+                    <span class="p-float-label">
+                        <p-inputNumber 
+                            inputId="documentoIdentificacion"
+                            formControlName="documentoIdentificacion"
+                            class="w-full"
+                            mode="decimal"
+                            [useGrouping]="false"
+                            >
+                        </p-inputNumber>
+                        <label for="documentoIdentificacion">Documento Identificacion</label>
+                    </span>
+                    <small class="p-error" *ngIf="validarCampo('documentoIdentificacion')">Completa este campo.</small>
+                </div>
+                
+            </div>
+
+            <div class="formgrid grid flex justify-content-center">
+
+                <div class="field col-12 sm:col-6">
+                    <span class="p-float-label">
+                        <p-dropdown
+                            inputId="sexo"
+                            formControlName="sexo"
+                            [options]="sexo"
+                            optionLabel="label"
+                            optionValue="label"
+                            appendTo="body"
+                            >
+                        </p-dropdown>
+                        <label for="sexo">Sexo</label>
+                    </span>
+                    <small class="p-error" *ngIf="validarCampo('sexo')">Completa este campo.</small>
+                </div>
+                <div class="field col-12 sm:col-6" *ngIf="usuariosForm.get('id')?.value">
+                    <span class="p-float-label">
+                        <p-dropdown
+                            inputId="estado"
+                            formControlName="estado"
+                            [options]="estado"
+                            optionLabel="label"
+                            optionValue="label"
+                            appendTo="body"
+                            >
+                        </p-dropdown>
+                        <label for="estado">Estado</label>
+                    </span>
+                    <small class="p-error" *ngIf="validarCampo('estado')">Completa este campo.</small>
+                </div>
+                
+            </div>
+
+       </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <div class="flex justify-content-evenly">
+
+            <p-button
+                label="Cerrar"
+                severity="danger"
+                (click)="hideDialog()"
+                >
+            </p-button>
+            <p-button
+                label="Guardar"
+                severity="success"
+                *ngIf="btnGuardar"
+                (click)="crear()"
+                >
+            </p-button>
+            <p-button
+                label="Actualizar"
+                severity="success"
+                *ngIf="btnActualizar"
+                (click)="actualizar()"
+                >
+            </p-button>
+        </div>
+    </ng-template>
+
+</p-dialog>
+
+<p-confirmDialog
+    #cd
+    [style]="{ width: '450px' }"
+    [closable]="false"
+    >
+
+    <ng-template pTemplate="headless" let-message>
+        <div class="flex flex-column align-items-center p-5 surface-overlay border-round">
+            <div class="border-circle bg-primary inline-flex justify-content-center align-items-center h-6rem w-6rem -mt-8">
+                <i class="pi pi-question text-5xl"></i>
+            </div>
+            <span class="font-bold text-2xl block mb-2 mt-4">{{ message.header }}</span>
+            
+            <p class="mb-0" [innerHTML]="message.message">
+                <i class="pi pi pi-info-circle"></i>
+            </p>
+            <div class="flex justify-content-evenly flex-wrap gap-2 mt-4">
+                <p-button
+                    label="No"
+                    [outlined]="true"
+                    severity="danger"
+                    (click)="cd.reject()"
+                    >
+                </p-button>
+                <p-button
+                    label="Si"
+                    [outlined]="true"
+                    severity="success"
+                    (click)="cd.accept()"
+                    >
+                </p-button>
+            </div>
+        </div>
+    </ng-template>
+
+</p-confirmDialog>

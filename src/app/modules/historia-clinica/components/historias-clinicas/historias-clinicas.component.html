@@ -1,0 +1,98 @@
+<app-table
+    [setTitleTable]="titleTable"
+    [data]="historiasClinicas"
+    [columns]="tableColumns"
+    [filtersField]="filterField"
+    [setTableConfig]="tableConfig"
+    (action)="onTableAction($event)"
+    >
+
+</app-table>
+
+<p-dialog
+    [(visible)]="dialog"
+    [style]="{ width: '550px' }"
+    header="{{tituloDialog}}"
+    [modal]="true"
+    [draggable]="false"
+    [closable]="false"
+    styleClass="p-fluid p-input-filled"
+    >
+
+    <ng-template pTemplate="content">
+       <div [formGroup]="historiaClinicaForm">
+
+            <div class="formgrid grid">
+
+                <div class="field col-12 sm:col-6">
+                    <span class="p-float-label">
+                        <p-calendar
+                            inputId="fechaCreacion"
+                            dateFormat="dd/mm/yy"
+                            formControlName="fechaCreacion"
+                            [showIcon]="true"
+                            appendTo="body"
+                            >
+                        </p-calendar>
+                        <label for="fechaCreacion">Fecha Creación</label>
+                    </span>
+                    <small class="p-error" *ngIf="validarCampo('fechaCreacion')">Completa este campo.</small>
+                </div>
+
+                <div class="field col-12 sm:col-6">
+                    <span class="p-float-label">
+                        <p-dropdown
+                            inputId="mascotaId"
+                            placeholder="&nbsp;"
+                            formControlName="mascotaId"
+                            [options]="mascotas"
+                            optionValue="id"
+                            appendTo="body"
+                            >
+
+                            <ng-template let-mascota pTemplate="item">
+                                <div> {{mascota.nombre}} </div>
+                            </ng-template>
+                            
+                            <ng-template let-mascota pTemplate="selectedItem">
+                                <div>{{mascota.nombre}}</div>
+                            </ng-template>
+
+                        </p-dropdown>
+                        <label for="mascotaId">Mascota</label>
+                    </span>
+                    <small class="p-error" *ngIf="validarCampo('mascotaId')">Completa este campo.</small>
+                </div>
+                
+            </div>
+
+       </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <div class="flex justify-content-evenly">
+
+            <p-button
+                label="Cerrar"
+                severity="danger"
+                (click)="hideDialog()"
+                >
+            </p-button>
+            <p-button
+                label="Guardar"
+                severity="success"
+                *ngIf="btnGuardar"
+                (click)="crear()"
+                >
+            </p-button>
+            <p-button
+                label="Actualizar"
+                severity="success"
+                *ngIf="btnActualizar"
+                (click)="actualizar()"
+                >
+            </p-button>
+        </div>
+    </ng-template>
+
+</p-dialog>

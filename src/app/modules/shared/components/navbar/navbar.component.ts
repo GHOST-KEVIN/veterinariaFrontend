@@ -10,20 +10,37 @@ export class NavbarComponent implements OnInit {
 
   items:MenuItem[] = []
 
-  constructor() { }
-
   ngOnInit(): void {
-    this.nav()
+    this.navegacion()
   }
 
-  private nav(){
+  private navegacion(){
     this.items = [
+      {
+        label : 'Colaborador',
+        icon : 'pi pi-user',
+        routerLink : 'colaborador/listar-colaboradores'
+      },
       {
         label : 'Usuario',
         icon : 'pi pi-user',
-        routerLink : 'usuario'
+        routerLink : 'usuario/listar-usuarios'
+      },
+      {
+        label : 'Mascotas',
+        icon : 'pi pi-heart-fill',
+        routerLink : 'mascota/listar-mascotas'
+      },
+      {
+        label : 'Historiales Clinicos',
+        icon : 'pi pi-calendar',
+        routerLink : 'historia-clinica/listar-historias'
+      },
+      {
+        label : 'Detalles Historias Clinicas',
+        icon : 'pi pi-check-square',
+        routerLink : 'detalle-historia-clinica/listar-detalles-clinicos'
       }
     ]
   }
-
 }

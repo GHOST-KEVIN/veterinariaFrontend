@@ -1,0 +1,209 @@
+<div class="card">
+    <app-table
+        [setTitleTable]="titleTable"
+        [data]="mascotas"
+        [columns]="tableColumns"
+        [filtersField]="filterField"
+        [setTableConfig]="tableConfig"
+        [setBtnObserver]="btnObservar"
+        (action)="onTableAction($event)"
+        >
+    </app-table>
+</div>
+
+<p-dialog
+    [(visible)]="dialog"
+    [style]="{ width: '550px' }"
+    header="{{tituloDialog}}"
+    [modal]="true"
+    [draggable]="false"
+    [closable]="false"
+    styleClass="p-fluid p-input-filled"
+    >
+
+    <ng-template pTemplate="content">
+       <div [formGroup]="mascotaForm">
+
+            <div class="formgrid grid">
+
+                <div class="field col-12 sm:col-6">
+                    <span class="p-float-label">
+                        <input 
+                            id="nombre"
+                            pInputText 
+                            formControlName="nombre"
+                            >
+                        <label for="nombre">Nombre</label>
+                    </span>
+                    <small class="p-error" *ngIf="validarCampo('nombre')">Completa este campo.</small>
+                </div>
+                <div class="field col-12 sm:col-6">
+                    <span class="p-float-label">
+                        <input 
+                            id="raza"
+                            pInputText 
+                            formControlName="raza"
+                            class="w-full"
+                            >
+                        <label for="raza">Raza</label>
+                    </span>
+                    <small class="p-error" *ngIf="validarCampo('raza')">Completa este campo.</small>
+                </div>
+                
+            </div>
+
+            <div class="formgrid grid">
+
+                <div class="field col-12 sm:col-6">
+                    <span class="p-float-label">
+                        <p-dropdown
+                            inputId="sexo"
+                            formControlName="sexo"
+                            [options]="sexo"
+                            optionLabel="label"
+                            optionValue="label"
+                            appendTo="body"
+                            >
+                        </p-dropdown>
+                        <label for="sexo">Sexo</label>
+                    </span>
+                    <small class="p-error" *ngIf="validarCampo('sexo')">Completa este campo.</small>
+                </div>
+                <div class="field col-12 sm:col-6">
+                    <span class="p-float-label">
+                        <p-dropdown
+                            inputId="usuarioId"
+                            placeholder="&nbsp;"
+                            appendTo="body"
+                            formControlName="usuarioId"
+                            [options]="usuarios"
+                            optionValue="id"
+                            >
+
+                            <ng-template let-usuario pTemplate="item">
+                                <div> {{usuario.nombres}} {{usuario.apellidos}} </div>
+                            </ng-template>
+                            
+                            <ng-template let-usuario pTemplate="selectedItem">
+                                <div>{{usuario.nombres}} {{usuario.apellidos}}</div>
+                            </ng-template>
+                            
+
+                        </p-dropdown>
+                        <label for="usuarioId">Dueño</label>
+                    </span>
+                    <small class="p-error" *ngIf="validarCampo('usuarioId')">Completa este campo.</small>
+                </div>
+                
+            </div>
+
+       </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <div class="flex justify-content-evenly">
+
+            <p-button
+                label="Cerrar"
+                severity="danger"
+                (click)="hideDialog()"
+                >
+            </p-button>
+            <p-button
+                label="Guardar"
+                severity="success"
+                *ngIf="btnGuardar"
+                (click)="crear()"
+                >
+            </p-button>
+            <p-button
+                label="Actualizar"
+                severity="success"
+                *ngIf="btnActualizar"
+                (click)="actualizar()"
+                >
+            </p-button>
+        </div>
+    </ng-template>
+
+</p-dialog>
+
+<p-confirmDialog
+    #cd
+    [style]="{ width: '450px' }"
+    [closable]="false"
+    >
+
+    <ng-template pTemplate="headless" let-message>
+        <div class="flex flex-column align-items-center p-5 surface-overlay border-round">
+            <div class="border-circle bg-primary inline-flex justify-content-center align-items-center h-6rem w-6rem -mt-8">
+                <i class="pi pi-question text-5xl"></i>
+            </div>
+            <span class="font-bold text-2xl block mb-2 mt-4">{{ message.header }}</span>
+            
+            <p class="mb-0" [innerHTML]="message.message">
+                <i class="pi pi pi-info-circle"></i>
+            </p>
+            <div class="flex justify-content-evenly flex-wrap gap-2 mt-4">
+                <p-button
+                    label="No"
+                    [outlined]="true"
+                    severity="danger"
+                    (click)="cd.reject()"
+                    >
+                </p-button>
+                <p-button
+                    label="Si"
+                    [outlined]="true"
+                    severity="success"
+                    (click)="cd.accept()"
+                    >
+                </p-button>
+            </div>
+        </div>
+    </ng-template>
+
+</p-confirmDialog>
+
+<p-dialog
+    [(visible)]="observar"
+    [style]="{ width: '400px' }"
+    header="{{tituloDialogObservar}}"
+    [modal]="true"
+    [draggable]="false"
+    >
+
+    <ng-template pTemplate="content">
+
+       <div class="formgrid grid">
+            <div class="field col-12 sm:col-6">
+                <span>
+                    <strong>Nombres</strong>
+                </span>
+                <div class="mt-1"> {{ usuario.nombres }} </div>
+            </div>
+            <div class="field col-12 sm:col-6">
+                <span>
+                    <strong>Apellidos</strong>
+                </span>
+                <div class="mt-1"> {{ usuario.apellidos }} </div>
+            </div>
+        </div>
+       <div class="formgrid grid">
+            <div class="field col-12 sm:col-6">
+                <span>
+                    <strong>Tipo Documento</strong>
+                </span>
+                <div class="mt-1"> {{ usuario.tipoDocumento }} </div>
+            </div>
+            <div class="field col-12 sm:col-6">
+                <span>
+                    <strong>Numero Documento</strong>
+                </span>
+                <div class="mt-1"> {{ usuario.documentoIdentificacion }} </div>
+            </div>
+        </div>
+        
+    </ng-template>
+
+</p-dialog>
