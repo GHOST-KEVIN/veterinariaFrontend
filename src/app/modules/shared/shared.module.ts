@@ -18,6 +18,9 @@ import { DialogModule } from 'primeng/dialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TooltipModule } from 'primeng/tooltip';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+
 
 @NgModule({
   declarations: [
@@ -49,7 +52,8 @@ import { TooltipModule } from 'primeng/tooltip';
     KeyFilterModule,
     ConfirmDialogModule,
     TooltipModule,
-    
+    InputGroupModule,
+    InputGroupAddonModule
   ]
 })
 export class SharedModule { }

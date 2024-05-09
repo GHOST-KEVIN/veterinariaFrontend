@@ -162,6 +162,8 @@ export class HistoriasClinicasComponent implements OnInit{
         this.toastCampoInvalido()
         return
       }
+
+      console.log(this.historiaClinicaForm.value)
   
       this.historiaService.registrar(this.historiaClinicaForm.value).subscribe({
         next: (historiaClinica:HistoriaClinica) => {

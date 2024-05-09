@@ -1,0 +1,13 @@
+::ng-deep .p-inputgroup .p-inputwrapper {
+    flex:none;
+    width: min-content;
+    max-height: 4rem;
+}
+
+::ng-deep .p-fluid .p-dropdown .p-dropdown-label {
+    padding: 1rem;
+}
+
+::ng-deep .p-dropdown .p-dropdown-trigger {
+    width: 1.5rem;
+}

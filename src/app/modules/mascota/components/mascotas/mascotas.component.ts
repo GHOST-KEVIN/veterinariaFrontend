@@ -15,37 +15,36 @@ import { Usuario } from 'src/app/modules/usuario/model/usuario.model';
   templateUrl: './mascotas.component.html',
   styleUrl: './mascotas.component.css'
 })
-export class MascotasComponent implements OnInit{
+export class MascotasComponent implements OnInit {
 
   dialog = false
   tituloDialog !: string
   btnGuardar !: boolean
   btnActualizar !: boolean
 
-  mascotas:Mascota[] = []
-  usuarios:Usuario[] = []
-  titleTable:string = "Lista de Mascotas"
-  btnObservar:string = "Datos Del Dueño"
+  mascotas: Mascota[] = []
+  usuarios: Usuario[] = []
+  titleTable: string = "Lista de Mascotas"
+  btnObservar: string = "Datos Del Dueño"
   tableColumns: TableColumn[] = []
   filterField: string[] = []
   tableConfig!: TableConfig
 
-  mascotaForm:FormGroup = new FormGroup({})
+  mascotaForm: FormGroup = new FormGroup({})
   sexo = [{ label: 'Macho' }, { label: 'Hembra' }]
-  usuario!:Usuario
+  usuario!: Usuario
   observar !: boolean
   tituloDialogObservar !: string
 
   constructor
     (
-      private mascotaService : MascotaService,
-      private fb : FormBuilder,
+      private mascotaService: MascotaService,
+      private fb: FormBuilder,
       private confirmationService: ConfirmationService,
-      private toastService : ToastService
-    )
-    {
-      this.formBuilder()
-    }
+      private toastService: ToastService,
+    ) {
+    // this.formBuilder()
+  }
 
   ngOnInit(): void {
     this.obtenerMascotas()
@@ -66,12 +65,12 @@ export class MascotasComponent implements OnInit{
     this.mascotaForm.patchValue(mascota!);
   }
 
-  private configTable(){
+  private configTable() {
     this.tableColumns = [
       { header: 'Nombre', field: 'nombre' },
       { header: 'Raza', field: 'raza' },
       { header: 'Sexo', field: 'sexo' },
-      { header: 'Dueño', field: 'usuario.nombres', dataType:'object' }
+      { header: 'Dueño', field: 'usuario.nombres', dataType: 'object' }
     ]
 
     this.tableConfig = {
@@ -87,17 +86,17 @@ export class MascotasComponent implements OnInit{
     this.filterField = ['nombre', 'raza']
   }
 
-  private obtenerMascotas(){
+  private obtenerMascotas() {
     this.mascotaService.obtener().subscribe({
-      next: (mascotas:Mascota[]) => {
+      next: (mascotas: Mascota[]) => {
         this.mascotas = mascotas
       }
     })
   }
 
-  private obtenerUsuarios(){
+  private obtenerUsuarios() {
     this.mascotaService.obtenerUsuarios().subscribe({
-      next: (usuarios:Usuario[]) => {
+      next: (usuarios: Usuario[]) => {
         this.usuarios = usuarios
       }
     })
@@ -113,7 +112,7 @@ export class MascotasComponent implements OnInit{
     else if (tableAction.action === TABLE_ACTION.ELIMINAR) {
       this.eliminar(tableAction.row)
     }
-    else if(tableAction.action === TABLE_ACTION.OBSERVAR){
+    else if (tableAction.action === TABLE_ACTION.OBSERVAR) {
       this.verDueño(tableAction.row.usuario)
     }
   }
@@ -126,7 +125,7 @@ export class MascotasComponent implements OnInit{
     this.formBuilder()
   }
 
-  private editar(mascota:Mascota){
+  private editar(mascota: Mascota) {
     this.dialog = true
     this.tituloDialog = 'Editar Usuario'
     this.btnActualizar = true
@@ -134,7 +133,7 @@ export class MascotasComponent implements OnInit{
     this.formBuilder(mascota)
   }
 
-  private verDueño(usuario:Usuario){
+  private verDueño(usuario: Usuario) {
     this.usuario = usuario
     this.tituloDialogObservar = 'Datos del Dueño'
     this.observar = true
@@ -183,13 +182,13 @@ export class MascotasComponent implements OnInit{
   }
 
   actualizar() {
-    if(this.mascotaForm.invalid){
+    if (this.mascotaForm.invalid) {
       this.toastCampoInvalido()
       return
     }
 
     this.mascotaService.actualizar(this.mascotaForm.value).subscribe({
-      next: (mascota:Mascota) => {
+      next: (mascota: Mascota) => {
         const mascotas = this.mascotas.filter((animal: Mascota) => animal.id !== mascota.id)
         this.mascotas = mascotas.concat(mascota)
         this.toastService.showSuccess('Actualizado', `<strong>${mascota.nombre}</strong> actualizado con exito.`)
@@ -201,14 +200,14 @@ export class MascotasComponent implements OnInit{
     })
   }
 
-  private eliminar(mascota:Mascota){
+  private eliminar(mascota: Mascota) {
     this.confirmationService.confirm({
       message: `Estas seguro de eliminar a <strong>${mascota.nombre}</strong>`,
       header: 'Confirmación',
       accept: () => {
         this.mascotaService.eliminar(mascota.id).subscribe({
           next: () => {
-            const mascotas = this.mascotas.filter((animal:Mascota) => animal.id !== mascota.id)
+            const mascotas = this.mascotas.filter((animal: Mascota) => animal.id !== mascota.id)
             this.mascotas = mascotas
             this.toastService.showSuccess('Eliminado', `<strong>${mascota.nombre}</strong> ha sido eliminado con exito.`)
             this.dialog = false
@@ -218,7 +217,7 @@ export class MascotasComponent implements OnInit{
     })
   }
 
-  hideDialog(){
+  hideDialog() {
     this.dialog = false
   }
 }

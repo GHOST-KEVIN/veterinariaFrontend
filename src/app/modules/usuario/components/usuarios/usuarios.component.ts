@@ -8,6 +8,7 @@ import { TableAction } from 'src/app/modules/table/models/table-action.model';
 import { TABLE_ACTION } from 'src/app/modules/table/enums/table-action.enum';
 import { ConfirmationService } from 'primeng/api';
 import { ToastService } from 'src/app/services/toast.service';
+import { Mascota } from 'src/app/modules/mascota/model/mascota.model';
 
 @Component({
   selector: 'app-listar-usuarios',
@@ -31,6 +32,12 @@ export class UsuariosComponent implements OnInit {
   tipoDocumento = [{ nombre: 'Cedula Ciudadania', value: 'CC' }, { nombre: 'Tarjeta Identidad', value: 'TI' }, { nombre: 'PasaPorte', value: 'PP' }]
   sexo = [{ label: 'Hombre' }, { label: 'Mujer' }, { label: 'Otro' }]
   estado = [{ label: 'Activo' }, { label: 'Inactivo' }]
+
+  mascotasPorUsuario:Mascota[] = []
+  mascotaForm:FormGroup = new FormGroup({})
+  sexoMascota = [{ label: 'Macho' }, { label: 'Hembra' }]
+  tituloDialogMascota:string = ''
+  dialogMascotas:boolean = false
 
   constructor
     (
@@ -79,7 +86,8 @@ export class UsuariosComponent implements OnInit {
       showActionsConfig: {
         editar: true,
         eliminar: true,
-        crear: true
+        crear: true,
+        observar: true
       }
     }
   }
@@ -98,6 +106,9 @@ export class UsuariosComponent implements OnInit {
     }
     else if (tableAction.action === TABLE_ACTION.EDITAR) {
       this.editar(tableAction.row)
+    }
+    else if(tableAction.action === TABLE_ACTION.OBSERVAR){
+      this.buscarUsuario(tableAction.row)
     }
     else if (tableAction.action === TABLE_ACTION.ELIMINAR) {
       this.eliminar(tableAction.row)
@@ -163,6 +174,11 @@ export class UsuariosComponent implements OnInit {
   }
 
   actualizar() {
+    if(this.usuariosForm.invalid){
+      this.toastCampoInvalido()
+      return
+    }
+    
     this.usuarioService.actualizar(this.usuariosForm.value).subscribe({
       next: (usuario:Usuario) => {
         const usuarios = this.usuarios.filter((user: Usuario) => user.id !== usuario.id)
@@ -191,6 +207,55 @@ export class UsuariosComponent implements OnInit {
         })
       }
     })
+  }
+
+  private buscarUsuario(usuario:Usuario){
+    this.usuarioService.obtenerPorId(usuario.id).subscribe(
+      {
+        next: (usuario:Usuario) => {
+          this.mascotasPorUsuario = usuario.mascotas
+          this.verMascotas(usuario.nombres, usuario.apellidos)
+        }
+      }
+    )
+  }
+
+  verMascotas(nombre:string, apellido:string){
+    this.tituloDialogMascota = `Mascotas de ${nombre} ${apellido}`
+    this.dialogMascotas = true
+  }
+
+  formBuilderMascotas(mascota?:Mascota){
+    this.mascotaForm = this.fb.group({
+      id: null,
+      nombre: [null, [ Validators.required ] ],
+      raza: [null, [ Validators.required ]],
+      sexo: [null, [ Validators.required ]],
+      usuarioId: [null, [ Validators.required ]]
+    })
+
+    this.mascotaForm.patchValue(mascota!)
+  }
+
+  onRowEditInit(mascota: Mascota, index: number) {
+
+    if (this.mascotasPorUsuario[index]) {
+      this.formBuilderMascotas(mascota)
+    }
+  }
+
+  onRowEditSave(mascota:Mascota) {
+    mascota = { ...this.mascotaForm.value}
+    
+    this.usuarioService.actualizarMascotaDelUsuario(mascota).subscribe(
+      {
+        next: (mascotaActualizada:Mascota) => {
+          const mascotas = this.mascotasPorUsuario.filter((mascota:Mascota) => mascota.id !== mascotaActualizada.id)
+          this.mascotasPorUsuario = mascotas.concat(mascotaActualizada)
+          this.toastService.showSuccess('Actualizado', `<strong>${mascotaActualizada.nombre}</strong> actualizado con exito.`)
+        }
+      }
+    )
   }
 
   hideDialog() {

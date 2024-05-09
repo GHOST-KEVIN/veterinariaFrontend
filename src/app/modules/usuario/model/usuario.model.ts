@@ -1,3 +1,5 @@
+import { Mascota } from "../../mascota/model/mascota.model"
+
 export class Usuario {
     
       id !: number
@@ -7,5 +9,5 @@ export class Usuario {
       documentoIdentificacion !: number
       estado !: string
       sexo !: string
-      // mascotas !: Mascota[]
+      mascotas !: Mascota[]
 }

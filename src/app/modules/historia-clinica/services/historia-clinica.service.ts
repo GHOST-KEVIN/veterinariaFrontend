@@ -31,6 +31,6 @@ export class HistoriaClinicaService {
   }
 
   eliminar(id:number){
-    return this.http.delete(`${environment.api}historia-clinica/${id}`);
+    return this.http.delete(`${environment.api}historia-clinica/eliminar/${id}`);
   }
 }

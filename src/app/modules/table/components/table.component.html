@@ -23,14 +23,14 @@
                         <p-button
                             class="p-button-success mr-2"
                             icon="pi pi-plus"
-                            *ngIf="tableConfig.showActions && tableConfig.showActionsConfig!.crear"
+                            *ngIf="tableConfig.showActions && tableConfig.showActionsConfig?.crear"
                             (click)="onCrear()"
                             >
                         </p-button>
-                        <span class="p-input-icon-left">
+                        <span class="p-input-icon-left p-input-filled">
                             <i class="pi pi-search" *ngIf=" searchTerm.value == '' "></i>
                             <i class="pi pi-times cursor-pointer" (click)="clearSearch()" *ngIf=" searchTerm.value != '' "></i>
-                            <input pInputText [formControl]="searchTerm" class="w-12 md:w-auto" (input)="onSearchInput($event)" placeholder="Buscar..." />
+                            <input pInputText [formControl]="searchTerm" class="w-12 md:w-auto pt-2" (input)="onSearchInput($event)" placeholder="Buscar..." />
                         </span>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                                 tooltipPosition="bottom"
                                 [showDelay]="500"
                                 [hideDelay]="300"
-                                *ngIf="tableConfig.showActionsConfig!.editar"
+                                *ngIf="tableConfig.showActionsConfig?.editar"
                                 (click)="onEditar(rowData)"
                                 >
                             </p-button>
@@ -80,7 +80,7 @@
                                 tooltipPosition="bottom"
                                 [showDelay]="500"
                                 [hideDelay]="300"
-                                *ngIf="tableConfig.showActionsConfig!.eliminar"
+                                *ngIf="tableConfig.showActionsConfig?.eliminar"
                                 (click)="onEliminar(rowData)"
                                 >
                             </p-button>
@@ -90,7 +90,7 @@
                                 tooltipPosition="bottom"
                                 [showDelay]="500"
                                 [hideDelay]="300"
-                                *ngIf="tableConfig.showActionsConfig!.observar"
+                                *ngIf="tableConfig.showActionsConfig?.observar"
                                 (click)="onObservar(rowData)"
                                 >
                             </p-button>
